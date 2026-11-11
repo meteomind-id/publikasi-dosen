@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script>(function(){var t=null;try{t=localStorage.getItem('pdm-theme')}catch(e){}if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Database Publikasi Dosen Meteorologi ITB</title>
+<meta name="description" content="Database 385 publikasi dari 19 dosen Program Studi Meteorologi ITB: artikel jurnal, prosiding, preprint, dan software, lengkap dengan ringkasan berbahasa Indonesia, tema keilmuan, SDGs, dan pencarian dwibahasa Indonesia–Inggris.">
+<meta name="keywords" content="Meteorologi ITB, publikasi dosen, FITB, sains atmosfer, iklim, cuaca ekstrem, MeteoMind">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Database Publikasi Dosen Meteorologi ITB">
+<meta property="og:description" content="385 publikasi dari 19 dosen Prodi Meteorologi ITB, dengan ringkasan berbahasa Indonesia dan pencarian dwibahasa.">
+<meta property="og:url" content="https://meteomind-id.github.io/publikasi-dosen/">
+<link rel="canonical" href="https://meteomind-id.github.io/publikasi-dosen/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -74,6 +83,201 @@ h1{font-size:26px;margin:0 0 6px;letter-spacing:-.3px}
 .card .jb{color:var(--muted);font-size:11.5px;margin-bottom:6px}
 .card .st{display:flex;gap:12px;font-size:11.5px;color:var(--muted)}
 .card .st b{display:block;font-size:15px;color:var(--ink)}
+.sbox{flex:1;min-width:260px;display:flex;position:relative}
+.sbox svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.sbox input[type=search]{flex:1;min-width:0;padding-left:34px;border-radius:8px 0 0 8px;border-right:0}
+.sbox input[type=search]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 2px var(--sky)}
+.sbtn{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:0 8px 8px 0;padding:0 18px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+.sbtn:hover{background:var(--blue);border-color:var(--blue)}
+.sbtn:active{transform:translateY(1px)}
+.sbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.qsug{width:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+.qsug button{font:inherit;font-size:12px;border:1px dashed var(--blue);background:transparent;color:var(--blue);border-radius:999px;padding:3px 10px;cursor:pointer;transition:background .15s}
+.qsug button:hover{background:var(--sky);border-style:solid}
+.qsug[hidden],.qhint[hidden]{display:none}
+.active{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-size:12px;color:var(--muted)}
+.active:empty{display:none}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:0;border-radius:999px;padding:4px 6px 4px 11px;font:inherit;font-size:12px;cursor:pointer;transition:background .15s}
+.pill:hover{background:var(--warn)}
+.pill i{font-style:normal;display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.22);font-size:11px;line-height:1}
+.pill.clr{background:transparent;color:var(--blue);text-decoration:underline;padding:4px 4px}
+.pill.clr:hover{background:transparent;color:var(--warn)}
+.count{transition:color .2s}
+.count.pulse{animation:pulse .6s ease}
+@keyframes pulse{0%{color:var(--navy);transform:scale(1)}40%{color:var(--blue);font-weight:600}100%{color:var(--muted)}}
+#list.flash .item{animation:flash .7s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--gold)}100%{box-shadow:0 0 0 0 transparent}}
+mark{background:var(--gold2);color:inherit;border-radius:3px;padding:0 1px;box-shadow:0 0 0 1px #ffe27a}
+.chip{transition:background .15s,border-color .15s,color .15s}
+.chip:hover{border-color:var(--blue);background:var(--sky2);color:var(--navy)}
+.chip.on:hover{background:var(--blue);color:#fff}
+.chip:focus-visible,.pill:focus-visible,.qsug button:focus-visible,.tm:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.tm{cursor:pointer;transition:background .15s,color .15s}
+.tm:hover{background:var(--navy);color:#fff}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:26px 20px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+.empty .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.empty .qsug{justify-content:center;margin-top:12px}
+@media(max-width:720px){.sbox{min-width:100%}.sbtn{padding:0 14px}body .bar{position:static}}
+
+/* ===== Panel rekomendasi ===== */
+.reco{margin:0 0 26px}
+.rhead{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.rhead .ey{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);font-weight:700}
+.rhead h2{font-size:21px;margin:2px 0 4px;color:var(--navy);letter-spacing:-.2px}
+.rhead p{margin:0;color:var(--muted);font-size:13px;max-width:640px}
+.rnav{display:flex;align-items:center;gap:8px}
+.rnav span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);min-width:54px;text-align:right}
+.rbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--navy);display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s,opacity .15s}
+.rbtn:hover:not(:disabled){background:var(--navy);color:#fff;border-color:var(--navy)}
+.rbtn:disabled{opacity:.35;cursor:default}
+.rbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.rtabs{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.rtabs::-webkit-scrollbar{display:none}
+.rtab{flex:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s,color .15s}
+.rtab i{width:8px;height:8px;border-radius:50%;background:var(--c,var(--navy));display:inline-block}
+.rtab b{font-weight:600;font-size:11px;color:var(--muted)}
+.rtab:hover{border-color:var(--c,var(--navy));background:var(--sky2)}
+.rtab.on{background:var(--c,var(--navy));border-color:var(--c,var(--navy));color:#fff}
+.rtab.on i{background:#fff}.rtab.on b{color:rgba(255,255,255,.8)}
+.rtab:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.rwrap{position:relative}
+.rtrack{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 14px;scrollbar-width:thin;cursor:grab;outline:none}
+.rtrack.drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none}
+.rtrack:focus-visible{box-shadow:0 0 0 3px var(--gold);border-radius:12px}
+.rcard{flex:0 0 312px;scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:12px;padding:14px 16px 14px;display:flex;flex-direction:column;gap:8px;transition:transform .18s,box-shadow .18s}
+.rcard:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,26,55,.10)}
+.rcard .rg{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.5px}
+.rcard .rg i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.rcard h3{margin:0;font-size:16.5px;line-height:1.35;color:var(--ink);letter-spacing:-.1px}
+.rcard .rw{margin:0;font-size:13px;line-height:1.55;color:#34405a}
+.rcard .ro{font-size:11.5px;color:var(--muted);font-style:italic;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rcard .rm{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:4px}
+.rcard .rm span{font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--muted)}
+.rcard .rm span.d{background:var(--gold2);border-color:#f3e3a0;color:#4a3d00}
+.rcard .rm span.pp{background:var(--warn2);border-color:#f1cfc5;color:var(--warn)}
+.rgo{align-self:flex-start;font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--c);color:var(--c);background:transparent;border-radius:8px;padding:6px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s}
+.rgo:hover{background:var(--c);color:#fff}
+.rgo:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.rbar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;max-width:240px;margin:2px auto 0}
+.rbar i{display:block;height:100%;background:var(--navy);border-radius:99px;width:20%;transition:transform .2s,width .2s}
+.rhint{text-align:center;font-size:11.5px;color:var(--muted);margin-top:6px}
+.item.focus{animation:focusPulse 2.6s ease}
+@keyframes focusPulse{0%,60%{box-shadow:0 0 0 3px var(--gold);border-color:var(--gold)}100%{box-shadow:none}}
+@media(min-width:721px){.rtabs{flex-wrap:wrap;overflow:visible}}
+@media(max-width:720px){.rcard{flex-basis:84%}.rhead h2{font-size:18px}.rnav .rbtn{display:none}.rnav span{text-align:left}}
+@media(prefers-reduced-motion:reduce){.rtrack{scroll-behavior:auto}.rcard,.rcard:hover{transition:none;transform:none}}
+
+/* ===== Redesain: hero ===== */
+.top{position:relative;overflow:hidden;color:#fff;border-bottom:4px solid var(--gold);background:radial-gradient(120% 140% at 85% 40%,#0b4f98 0%,#06305f 45%,#041f40 100%)}
+.top::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#041f40 0%,rgba(4,31,64,.88) 38%,rgba(4,31,64,.15) 75%,rgba(4,31,64,0) 100%);pointer-events:none}
+.top .iso{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.top .in{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:54px 20px 30px;display:block}
+.iso .ip{fill:none;stroke:#8ec2ff;stroke-opacity:.34;stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s cubic-bezier(.35,.1,.25,1) var(--d) forwards}
+.iso .ip.hi{stroke:#ffe37a;stroke-opacity:.16}
+.iso .lbl text{fill:#cfe3ff;fill-opacity:0;font:600 10.5px 'Plus Jakarta Sans',sans-serif;letter-spacing:.3px;animation:fadeIn 1s ease 1.6s forwards}
+.iso .lbl text.cen{font-size:30px;font-weight:800;fill:#ffcc00;text-anchor:middle}
+.iso .lbl text.cen.t{fill:#ffe37a;font-size:26px}
+.iso .drift{animation:drift 46s ease-in-out 2.6s infinite alternate}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{fill-opacity:.55}}
+@keyframes drift{to{transform:translate(-26px,10px)}}
+.top .eyebrow{font-size:13.5px;letter-spacing:.1px;text-transform:none;color:var(--gold);font-weight:600;margin-bottom:12px}
+.top h1{font-size:clamp(30px,4.6vw,50px);line-height:1.06;font-weight:800;letter-spacing:-1.4px;margin:0 0 14px;max-width:15ch}
+.top .sub{color:#c3d3ea;font-size:14.5px;line-height:1.6;max-width:62ch;margin:0}
+.top .kpis{margin:34px 0 0;gap:10px}
+.top .kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:2px solid rgba(255,204,0,.75);color:#fff;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.top .kpi b{color:#fff;font-size:30px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.top .kpi b.kvl{font-size:22px}
+.top .kpi span{color:#b8c9e2}
+.top .kpi i{color:var(--gold);opacity:.85}
+.top .kpi:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);border-top-color:var(--gold);box-shadow:0 10px 26px rgba(0,0,0,.25)}
+@media(max-width:720px){.top .in{padding:36px 18px 22px}.top::after{background:linear-gradient(180deg,rgba(4,31,64,.6),rgba(4,31,64,.92))}.top .kpi b{font-size:24px}.top .kpi b.kvl{font-size:17px}}
+/* judul seksi: tanpa huruf kapital semua */
+.sec{font-size:17px;text-transform:none;letter-spacing:-.1px;font-weight:700;margin:34px 0 12px}
+.rhead .ey{text-transform:none;letter-spacing:.1px;font-size:13px;color:var(--blue)}
+.rhead h2{font-size:24px;letter-spacing:-.4px}
+.rcard .rg{text-transform:none;letter-spacing:0;font-size:12px}
+
+/* ===== Jendela detail paper ===== */
+.pm{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px}
+.pm[hidden]{display:none}
+.pm-shade{position:absolute;inset:0;background:rgba(4,22,46,.55);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:pmFade .2s ease}
+.pm-box{position:relative;width:min(760px,100%);max-height:min(88vh,900px);overflow:auto;background:var(--panel);border-radius:16px;box-shadow:0 30px 80px rgba(0,20,45,.45);border-top:6px solid var(--c,var(--navy));animation:pmIn .28s cubic-bezier(.2,.9,.3,1.15);outline:none;overscroll-behavior:contain}
+.pm-top{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:12px 14px 10px 22px;background:linear-gradient(var(--panel) 75%,rgba(255,255,255,0))}
+.pm-top .grp{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--c,var(--navy))}
+.pm-top .grp i{width:9px;height:9px;border-radius:50%;background:var(--c,var(--navy))}
+.pm-top .sp{flex:1}
+.pm-top .grp{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pm-top .pos{white-space:nowrap}
+.pm-top .pos{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pm-ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--navy);display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
+.pm-ib:hover:not(:disabled){background:var(--navy);color:#fff}
+.pm-ib:disabled{opacity:.3;cursor:default}
+.pm-ib:focus-visible,.pm-act a:focus-visible,.pm-act button:focus-visible,.pm-dos button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pm-body{padding:0 26px 24px}
+.pm-body h2{margin:2px 0 10px;font-size:clamp(21px,2.6vw,27px);line-height:1.22;letter-spacing:-.5px;color:var(--ink)}
+.pm-why{margin:0 0 16px;padding:12px 16px;border-radius:10px;background:color-mix(in srgb,var(--c,#003d7a) 8%,#fff);border-left:3px solid var(--c,var(--navy));font-size:14px;line-height:1.6;color:#26324a}
+.pm-why b{display:block;font-size:12px;color:var(--c,var(--navy));margin-bottom:2px}
+.pm-ot{font-size:15px;font-weight:600;line-height:1.4;color:var(--ink);text-decoration:none}
+a.pm-ot:hover{color:var(--blue);text-decoration:underline}
+.pm-au{font-size:13px;color:var(--muted);margin-top:5px}
+.pm-src{font-size:13px;font-style:italic;color:#34405a;margin-top:2px}
+.pm-meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.pm-meta span{font-size:12px;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:2px 8px;color:#3b475e}
+.pm-meta span.pp{background:var(--warn2);border-color:#f1cfc5;color:var(--warn)}
+.pm-sum{margin:16px 0 0;padding:14px 16px;border-radius:10px;background:var(--sky2);border:1px solid var(--sky);font-size:14.5px;line-height:1.7;color:#24304a}
+.pm-sum b{display:block;font-size:12px;color:var(--navy);margin-bottom:4px}
+.pm-sum small{font-weight:400;color:var(--muted)}
+.pm-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:14px}
+.pm-tags .lbl{font-size:12px;font-weight:700;color:var(--navy);margin-right:2px}
+.pm-dos{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
+.pm-dos button{font:inherit;font-size:12.5px;border:1px solid #f0dd8f;background:var(--gold2);color:#3d3300;border-radius:999px;padding:4px 11px;cursor:pointer;transition:background .15s}
+.pm-dos button:hover{background:#ffe680}
+.pm-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.pm-act a,.pm-act button{font:inherit;font-size:13px;font-weight:600;border-radius:9px;padding:9px 14px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:background .15s,color .15s,border-color .15s}
+.pm-act .pri{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+.pm-act .pri:hover{background:var(--blue);border-color:var(--blue)}
+.pm-act .sec2{background:var(--panel);color:var(--navy);border:1px solid var(--line)}
+.pm-act .sec2:hover{border-color:var(--navy);background:var(--sky2)}
+.pm-kbd{font-size:11.5px;color:var(--muted);margin-top:12px}
+body.pm-open{overflow:hidden}
+@keyframes pmFade{from{opacity:0}}
+@keyframes pmIn{from{opacity:0;transform:translateY(18px) scale(.97)}}
+@media(max-width:720px){.pm{padding:0;place-items:end stretch}.pm-box{width:100%;max-height:92vh;border-radius:18px 18px 0 0;animation:pmUp .3s cubic-bezier(.2,.9,.3,1)}.pm-body{padding:0 18px 22px}.pm-kbd{display:none}}
+@keyframes pmUp{from{transform:translateY(100%)}}
+
+/* ===== Bilah pencarian ringkas ===== */
+.bar{position:static !important}
+.bar .sbox{flex-basis:100%}
+.fpanel{width:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.frow{width:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.frow .fl{font-size:12px;color:var(--muted);min-width:44px}
+.cbar{position:fixed;top:0;left:0;right:0;z-index:30;transform:translateY(-110%);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s;background:rgba(246,248,251,.86);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.cbar.show{transform:none;box-shadow:0 8px 24px rgba(0,26,55,.10)}
+.cin{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;gap:10px;align-items:center}
+.cin .sbox{flex:1;min-width:0}
+.cin .sbox input[type=search]{padding-top:9px;padding-bottom:9px}
+.fbtn{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--navy);border-radius:9px;padding:9px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:background .15s,border-color .15s}
+.fbtn:hover,.cbar.open .fbtn{border-color:var(--navy);background:var(--sky2)}
+.fbtn b{min-width:20px;height:20px;border-radius:999px;background:var(--gold);color:var(--navy2);font-size:11.5px;display:inline-grid;place-items:center;padding:0 6px}
+.fbtn b[hidden]{display:none}
+.fbtn svg{transition:transform .2s}
+.cbar.open .fbtn svg.chev{transform:rotate(180deg)}
+.fbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.ccount{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.cdrop{display:none;max-width:1240px;margin:0 auto;padding:0 20px 14px}
+.cbar.open .cdrop{display:block;animation:dropIn .22s ease}
+.cdrop .fpanel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;max-height:min(62vh,520px);overflow:auto;box-shadow:0 14px 30px rgba(0,26,55,.12)}
+.cfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.cfoot .sbtn{border-radius:9px;padding:9px 16px}
+.cfoot .btn{padding:9px 14px}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px)}}
+@media(max-width:720px){.cin{padding:8px 12px;gap:8px}.ccount{display:none}.fbtn .ft{display:none}.cdrop{padding:0 12px 12px}.cin .sbox .sbtn{padding:0 12px}}
+@media(prefers-reduced-motion:reduce){.iso .ip{animation:none;stroke-dashoffset:0}.iso .lbl text{animation:none;fill-opacity:.55}.iso .drift{animation:none}.pm-box,.pm-shade,.cbar.open .cdrop{animation:none}.cbar{transition:none}}
+.qhint{width:100%;font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:-2px}
+.qhint b{color:var(--navy);font-weight:600}
+.qhint .alt{display:inline-block;background:var(--sky);color:var(--navy);border-radius:4px;padding:0 5px;margin:1px 2px}
 .bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 input[type=search],select{font:inherit;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;color:var(--ink)}
 input[type=search]{flex:1;min-width:220px}
@@ -171,41 +375,410 @@ input[type=search]:focus,select:focus{outline:2px solid var(--sky);border-color:
 .totop span{position:absolute;right:58px;white-space:nowrap;background:var(--navy2);color:#fff;font-size:12px;padding:5px 9px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .15s}
 .totop:hover span{opacity:1}
 @media(max-width:720px){.totop{right:14px;bottom:14px;width:44px;height:44px}.totop span{display:none}}
+
+/* ================= Gaya editorial (v6) ================= */
+:root{--bg:#f7f8fa;--line:#e2e7ee;--ink:#0f1b2d;--muted:#5b687c;--accent:#003d7a}
+html[data-theme=dark]{color-scheme:dark;--bg:#06101d;--panel:#0c1829;--ink:#e6edf6;--muted:#93a2b8;--line:#1b2a3f;--sky:#13284a;--sky2:#0e1f38;--gold2:#33290a;--navy:#86b4ff;--navy2:#0a1b33;--blue:#a3c6ff;--warn:#ff9f8a;--warn2:#36170f;--accent:#2a66c8}
+body{transition:background-color .3s ease,color .3s ease}
+/* tombol tema */
+.theme{position:absolute;top:18px;right:20px;z-index:2;display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:12.5px;font-weight:600;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 13px 7px 11px;cursor:pointer;transition:background .2s,border-color .2s}
+.theme:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+.theme:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.theme .sun{display:none}.theme.dk .sun{display:block}.theme.dk .moon{display:none}
+/* hero: judul lebih ringan dan lega */
+.top h1{font-weight:600;letter-spacing:-1.8px}
+/* pernyataan */
+.stmt{padding:clamp(64px,9vw,120px) 0 clamp(40px,6vw,80px)}
+.stx{margin:0;font-size:clamp(25px,3.5vw,46px);line-height:1.2;font-weight:500;letter-spacing:-1.1px;max-width:30ch;color:var(--ink)}
+.stx span{opacity:.15;transition:opacity .35s ease}
+.stx span.on{opacity:1}
+/* judul seksi */
+.sec{font-size:clamp(24px,2.6vw,32px);font-weight:500;letter-spacing:-.8px;color:var(--ink);margin:72px 0 20px;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px}
+.sec::after{display:none}
+.sec small{font-size:13.5px;font-weight:400;letter-spacing:0;color:var(--muted)}
+/* rekomendasi */
+.rhead{margin-bottom:18px}
+.rhead h2{font-size:clamp(28px,3.4vw,42px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--ink);margin:4px 0 10px}
+.rhead p{font-size:14px;line-height:1.6}
+.rcard{flex-basis:340px;border:1px solid var(--line);border-top:1px solid var(--line);border-radius:18px;padding:24px 22px 20px;gap:11px;position:relative;background:var(--panel)}
+.rcard::before{content:"";position:absolute;left:22px;width:36px;top:0;height:3px;background:var(--c);border-radius:0 0 3px 3px}
+.rcard:hover{transform:none;border-color:color-mix(in srgb,var(--c) 50%,var(--line));box-shadow:0 18px 40px rgba(0,26,55,.09)}
+.rcard h3{font-size:19px;font-weight:600;letter-spacing:-.35px;line-height:1.3}
+.rcard .rw{font-size:13.5px;line-height:1.6}
+.rtab{padding:7px 14px}
+/* kursor geser yang kontras */
+.rtrack{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='14' fill='%230b2545' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M10.5 18h15M10.5 18l3.2-3.2M10.5 18l3.2 3.2M25.5 18l-3.2-3.2M25.5 18l-3.2 3.2' stroke='%23ffffff' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, grab}
+.rtrack.drag{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='14' fill='%230b2545' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M10.5 18h15M10.5 18l3.2-3.2M10.5 18l3.2 3.2M25.5 18l-3.2-3.2M25.5 18l-3.2 3.2' stroke='%23ffffff' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, grabbing}
+.rtrack .rgo,.rtrack a{cursor:pointer}
+html[data-theme=dark] .rtrack{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='14' fill='%23ffffff' stroke='%230b2545' stroke-width='2'/%3E%3Cpath d='M10.5 18h15M10.5 18l3.2-3.2M10.5 18l3.2 3.2M25.5 18l-3.2-3.2M25.5 18l-3.2 3.2' stroke='%230b2545' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, grab}
+html[data-theme=dark] .rtrack.drag{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='14' fill='%23ffffff' stroke='%230b2545' stroke-width='2'/%3E%3Cpath d='M10.5 18h15M10.5 18l3.2-3.2M10.5 18l3.2 3.2M25.5 18l-3.2-3.2M25.5 18l-3.2 3.2' stroke='%230b2545' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, grabbing}
+/* tombol berbentuk pil */
+.btn,.sbtn,.rgo,.fbtn,.pm-act a,.pm-act button,.cfoot .sbtn,.cfoot .btn{border-radius:999px}
+.sbox input[type=search]{border-radius:999px 0 0 999px;padding-left:38px}
+.sbox svg{left:14px}
+.sbtn{border-radius:0 999px 999px 0;padding:0 20px}
+.cfoot .sbtn{padding:9px 18px}
+select{border-radius:999px;padding:8px 14px}
+/* kartu dosen */
+.card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--panel)}
+.card:hover{border-color:var(--navy);box-shadow:0 12px 28px rgba(0,26,55,.08)}
+/* daftar publikasi: baris editorial bergaris tipis */
+.yr{margin:52px 0 4px;align-items:baseline}
+.yr b{font-family:inherit;font-size:clamp(30px,3.4vw,44px);font-weight:400;letter-spacing:-1.6px;background:none;color:var(--ink);padding:0;border-radius:0;line-height:1}
+.yr i{align-self:center}
+.yr span{font-size:13px}
+.item{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:24px 6px 24px;margin:0;transition:background-color .2s}
+.item:hover{background:color-mix(in srgb,var(--sky2) 70%,transparent)}
+.item.dup{opacity:.58}
+.item .tt{font-size:17px;font-weight:600;line-height:1.4;letter-spacing:-.25px}
+.item .au{font-size:13px;margin-top:6px}
+.item .src{font-size:13px;margin-top:2px}
+.sm{background:transparent;border:0;border-left:2px solid var(--gold);border-radius:0;padding:2px 0 2px 16px;margin-top:14px;font-size:14px;line-height:1.7;max-width:96ch}
+.sm.p{background:transparent;border-left-color:#e0b400}
+.sm .lb b{text-transform:none;letter-spacing:0;font-size:12px}
+.thr{margin-top:12px}
+.thr .lbl,.pm-tags .lbl{text-transform:none;letter-spacing:0;font-size:12px}.meta{margin-top:10px}
+.item.focus{animation:rowFocus 2.8s ease}
+@keyframes rowFocus{0%,55%{background:var(--gold2);box-shadow:inset 3px 0 0 var(--gold)}100%{background:transparent;box-shadow:none}}
+.note{border-radius:16px;padding:18px 22px;font-size:13px;line-height:1.6}
+/* footer */
+.foot{background:#041f40;color:#b8c9e2;border-top:4px solid var(--gold);margin-top:20px}
+.fin{max-width:1240px;margin:0 auto;padding:60px 20px 46px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:26px}
+.fbig{margin:0;color:#fff;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.3px;line-height:1.08}
+.fmeta{display:flex;flex-direction:column;gap:4px;font-size:13px;max-width:48ch}
+/* ===== mode gelap: warna yang tadinya ditulis langsung ===== */
+html[data-theme=dark] .sbtn,html[data-theme=dark] .chip.on,html[data-theme=dark] .pill,html[data-theme=dark] .totop,html[data-theme=dark] .pm-act .pri,html[data-theme=dark] .av,html[data-theme=dark] .rbar i{background:var(--accent);border-color:var(--accent);color:#fff}
+html[data-theme=dark] .totop{color:var(--gold)}
+html[data-theme=dark] .av{color:var(--gold)}
+html[data-theme=dark] .sbtn:hover,html[data-theme=dark] .pm-act .pri:hover{background:#3b7be0;border-color:#3b7be0}
+html[data-theme=dark] .rbtn:hover:not(:disabled),html[data-theme=dark] .pm-ib:hover:not(:disabled){background:var(--accent);border-color:var(--accent);color:#fff}
+html[data-theme=dark] .rtab[data-g=all]{--c:#2a66c8 !important}
+html[data-theme=dark] [style*="003d7a"]{--c:#6d9ff0 !important}
+html[data-theme=dark] .rcard .rg,html[data-theme=dark] .pm-top .grp,html[data-theme=dark] .rgo{filter:brightness(1.45) saturate(.9)}
+html[data-theme=dark] .rgo:hover{filter:none}
+html[data-theme=dark] .ph{background:#0b2a52}
+html[data-theme=dark] .ph .av{background:var(--gold);color:#0b2545}
+html[data-theme=dark] .item .src,html[data-theme=dark] .note,html[data-theme=dark] .rcard .rw{color:#b4c2d6}
+html[data-theme=dark] .tag{background:#15243a;color:#b6c3d6}
+html[data-theme=dark] .tag.k{background:#14294a;color:#a9c8ff}
+html[data-theme=dark] .tag.dos,html[data-theme=dark] .rcard .rm span.d,html[data-theme=dark] .pm-dos button{background:var(--gold2);color:#f2d77a;border-color:#4d3f12}
+html[data-theme=dark] .tag.dos:hover,html[data-theme=dark] .pm-dos button:hover{background:#4a3c0e}
+html[data-theme=dark] .sm,html[data-theme=dark] .pm-sum,html[data-theme=dark] .pm-why{color:#c7d3e4}
+html[data-theme=dark] .pm-why{background:color-mix(in srgb,var(--c,#2a66c8) 16%,#0c1829)}
+html[data-theme=dark] .pm-meta span{color:#b6c3d6}
+html[data-theme=dark] .tm{background:transparent}
+html[data-theme=dark] .tm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+html[data-theme=dark] mark{background:#5c4a08;color:#fff1bf;box-shadow:none}
+html[data-theme=dark] .cbar{background:rgba(6,16,29,.84)}
+html[data-theme=dark] .rcard:hover,html[data-theme=dark] .card:hover{box-shadow:0 18px 40px rgba(0,0,0,.45)}
+html[data-theme=dark] .card:hover{border-color:#3b5f97}
+html[data-theme=dark] .foot{background:#030b16}
+html[data-theme=dark] .chip.th.on{background:var(--gold);color:#0b2545;border-color:var(--gold)}
+html[data-theme=dark] .sbox svg{color:var(--muted)}
+html[data-theme=dark] .empty{border-color:var(--line)}
+@media(max-width:720px){.theme{top:12px;right:12px;padding:6px 10px}.theme .tl{display:none}.top .in{padding-top:58px}.rcard{flex-basis:84%}.sec{margin-top:56px}.yr{margin-top:40px}}
+@media(prefers-reduced-motion:reduce){.stx span{opacity:1;transition:none}body{transition:none}}
+
+/* ================= Identitas visual MeteoMind (v7) ================= */
+:root{--navy:#102f46;--navy2:#0a1f31;--gold:#ffac2e;--gold2:#fff1d8;--blue:#1f6fa8;--sky:#e6eef5;--sky2:#f1f5f9;--bg:#f6f8fa;--panel:#fff;--ink:#0f2638;--muted:#5b6b7d;--line:#e2e8ee;--accent:#112f47;--teal:#44c8ba;--indigo:#2b4796;--q1:#112f47;--q2:#2f6f9f;--q3:#7c9bb8;--q4:#a9b6c3}
+html[data-theme=dark]{--bg:#07121d;--panel:#0d1c2c;--ink:#e8eef5;--muted:#94a6b9;--line:#1b2e42;--sky:#122a42;--sky2:#0d2136;--gold2:#3a2c0c;--navy:#9cc6ea;--navy2:#061321;--blue:#8fc0ea;--accent:#feac2f}
+::selection{background:#feac2f;color:#0a1f31}
+/* huruf judul: Poppins seperti konten MeteoMind */
+.top h1,.stx,.sec,.rhead h2,.rcard h3,.pm-body h2,.fbig,.brand,.top .kpi b,.yr b,.item .tt{font-family:'Poppins','Plus Jakarta Sans',system-ui,sans-serif}
+.stx,.sec,.rhead h2,.fbig{font-weight:500}
+.mm-logo{display:block;border-radius:50%}
+/* hero */
+.top{background:radial-gradient(120% 140% at 85% 30%,#1c4a6d 0%,#112f47 46%,#0a1f31 100%);border-bottom:0}
+.top::after{background:linear-gradient(90deg,#0a1f31 0%,rgba(10,31,49,.9) 36%,rgba(10,31,49,.2) 74%,rgba(10,31,49,0) 100%)}
+.top::before{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;z-index:2;background:linear-gradient(90deg,var(--teal),#3884a4 40%,var(--indigo) 68%,var(--gold))}
+.iso .ip{stroke:#7fdcc6;stroke-opacity:.26}
+.iso .ip.hi{stroke:#feac2f;stroke-opacity:.2}
+.iso .lbl text{fill:#cfe9ff}
+.iso .lbl text.cen,.iso .lbl text.cen.t{fill:#feac2f}
+.nav{position:relative;z-index:3;max-width:1240px;margin:0 auto;padding:18px 20px 0;display:flex;align-items:center;gap:18px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.4px}
+.brand:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:8px}
+.nav .links{display:flex;gap:4px;margin:0 0 0 auto;padding:0;border:0;background:none}
+.nav .links a{color:#c7d6e4;background:transparent;border:0;box-shadow:none;text-decoration:none;font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:999px;transition:background .2s,color .2s}
+.nav .links a:hover{background:rgba(255,255,255,.09);color:#fff}
+.nav .links a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.theme{position:static;margin-left:6px}
+.top .in{padding:62px 20px 0}
+.top .eyebrow{color:var(--gold);font-weight:600}
+.top h1{font-size:clamp(34px,5.2vw,62px);font-weight:700;letter-spacing:-2px;line-height:1.04;max-width:14ch}
+.top h1 .hl{background:var(--gold);color:#0a1f31;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .14em;border-radius:6px;line-height:1.18}
+.top .sub{color:#b9cadb;font-size:15px}
+/* statistik: baris tipis tanpa kotak */
+.top .kpis{margin:46px 0 0;gap:0;border-top:1px solid rgba(255,255,255,.14)}
+.top .kpi{background:none;border:0;border-left:1px solid rgba(255,255,255,.12);border-radius:0;padding:20px 22px 26px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.top .kpi:first-child{border-left:0;padding-left:0}
+.top .kpi:hover{background:rgba(255,255,255,.05);box-shadow:none;transform:none}
+.top .kpi b{font-size:38px;font-weight:600;letter-spacing:-1.2px;color:#fff;padding-right:0;margin-bottom:2px}
+.top .kpi b.kvl{font-size:30px;letter-spacing:-.9px;line-height:inherit;padding-top:0}
+.rcard::before{display:none}
+.top .kpi span{color:#a9bccf;font-size:13px}
+.top .kpi i{position:static;display:block;order:3;margin-top:10px;color:var(--gold);font-size:12px;opacity:.9}
+.top .kpi{display:flex;flex-direction:column}
+/* tombol utama */
+.sbtn,.pm-act .pri,.pill,.chip.on,.totop,.av,.rbar i{background:var(--navy);border-color:var(--navy)}
+.sbtn:hover,.pm-act .pri:hover{background:var(--gold);border-color:var(--gold);color:#0a1f31}
+.totop{color:var(--gold)}
+.chip.th.on{background:var(--gold);border-color:var(--gold);color:#0a1f31}
+.rtab[data-g=all]{--c:#112f47 !important}
+mark{background:#ffe3b0;box-shadow:0 0 0 1px #ffd48a}
+.sm{border-left-color:var(--gold)}
+.item.focus{animation:rowFocus 2.8s ease}
+.rhead .ey,.sec small{color:var(--muted)}
+.rhead .ey{color:#c98a12;font-weight:600}
+.qsug button{border-color:#2f7fb8;color:#1f6fa8}
+.tag.k{background:var(--sky);color:var(--navy)}
+.tag.dos,.rcard .rm span.d,.pm-dos button{background:#fff4e0;border-color:#ffd9a0;color:#7a4b00}
+.tag.dos:hover,.pm-dos button:hover{background:#ffe2b3}
+.note{border-left:4px solid var(--gold)}
+/* footer */
+.foot{background:#0a1f31;border-top:0;position:relative}
+.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--teal),#3884a4 40%,var(--indigo) 68%,var(--gold))}
+.fbrand{margin-bottom:22px}
+.ftag{margin:14px 0 0;color:#8fb0c9;font-size:13.5px;letter-spacing:.2px}
+.fmeta a{color:var(--gold);text-decoration:none;font-weight:600}
+.fmeta a:hover{text-decoration:underline}
+/* mode gelap */
+html[data-theme=dark] .sbtn,html[data-theme=dark] .pm-act .pri,html[data-theme=dark] .pill,html[data-theme=dark] .chip.on,html[data-theme=dark] .rbar i{background:var(--gold);border-color:var(--gold);color:#0a1f31}
+html[data-theme=dark] .sbtn:hover,html[data-theme=dark] .pm-act .pri:hover{background:#ffc261;border-color:#ffc261;color:#0a1f31}
+html[data-theme=dark] .totop,html[data-theme=dark] .av{background:#1d3a55;color:var(--gold)}
+html[data-theme=dark] .rtab[data-g=all]{--c:#feac2f !important}
+html[data-theme=dark] .rtab[data-g=all].on{color:#0a1f31}
+html[data-theme=dark] .rtab[data-g=all].on i{background:#0a1f31}
+html[data-theme=dark] [style*="112f47"]{--c:#8fb6dc !important}
+html[data-theme=dark] .rbtn:hover:not(:disabled),html[data-theme=dark] .pm-ib:hover:not(:disabled){background:var(--gold);border-color:var(--gold);color:#0a1f31}
+html[data-theme=dark] .tag.dos,html[data-theme=dark] .rcard .rm span.d,html[data-theme=dark] .pm-dos button{background:var(--gold2);color:#ffd28a;border-color:#5a4214}
+html[data-theme=dark] mark{background:#6a4a08;color:#fff1d0;box-shadow:none}
+html[data-theme=dark] .qsug button{border-color:#4f8fc4;color:#9cc6ea}
+html[data-theme=dark] .rhead .ey{color:var(--gold)}
+html[data-theme=dark] .foot{background:#040d17}
+html[data-theme=dark] .ph{background:#112f47}
+@media(max-width:860px){.nav .links{display:none}.theme{margin-left:auto}}
+@media(max-width:720px){.iso .lbl text:not(.cen){display:none}.nav{padding:14px 16px 0}.brand{font-size:16px}.brand svg{width:30px;height:30px}.top .in{padding:40px 18px 0}.top .kpis{grid-template-columns:1fr 1fr}.top .kpi{padding:16px 14px 18px}.top .kpi:nth-child(3){border-left:0;padding-left:0}.top .kpi:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}.top .kpi b{font-size:30px}.top .kpi b.kvl{font-size:19px}.top h1{letter-spacing:-1.2px}}
+html{scroll-behavior:smooth}#reco,#dosen-list,#semua{scroll-margin-top:24px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ================= Isi halaman: lebih tenang dan elegan (v8) ================= */
+:root{--bg:#ffffff;--soft:#f4f7fa;--line:#e6ebf0;--muted:#64748b;--ink:#0f2638}
+html[data-theme=dark]{--bg:#07121d;--soft:#0b1a29;--line:#1a2c40}
+html,body{overflow-x:clip}
+body{background:var(--bg)}
+/* pernyataan */
+.stmt{padding:clamp(70px,9vw,128px) 0 clamp(60px,8vw,104px)}
+.stline{display:block;width:56px;height:4px;border-radius:4px;margin-bottom:28px;background:linear-gradient(90deg,var(--teal),var(--indigo) 60%,var(--gold))}
+.stx{font-size:clamp(26px,3.3vw,44px);line-height:1.24;letter-spacing:-1px;max-width:28ch}
+/* ---------- Sorotan: pita navy selebar layar ---------- */
+.reco{position:relative;isolation:isolate;padding:clamp(56px,7vw,92px) 0 clamp(48px,6vw,76px);margin:0}
+.reco::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);background:radial-gradient(90% 120% at 100% 0%,#173f60 0%,#102f46 45%,#0b2236 100%)}
+.reco::after{content:"";position:absolute;z-index:-1;left:calc(50% - 50vw);right:calc(50% - 50vw);top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(68,200,186,.5),rgba(255,172,46,.5),transparent)}
+.reco .rhead .ey{color:var(--gold)}
+.reco .rhead h2{color:#fff}
+.reco .rhead p,.reco .rhint,.reco .rnav span{color:#a9bccf}
+.reco .rbtn{background:transparent;border-color:rgba(255,255,255,.25);color:#fff}
+.reco .rbtn:hover:not(:disabled){background:var(--gold);border-color:var(--gold);color:#0a1f31}
+.reco .rtab{background:transparent;border-color:rgba(255,255,255,.18);color:#d5e2ee}
+.reco .rtab b{color:#8fa6bb}
+.reco .rtab:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.35)}
+.reco .rtab.on{background:#fff;border-color:#fff;color:#0f2638}
+.reco .rtab.on i{background:var(--c)}
+.reco .rtab.on b{color:#64748b}
+.reco .rtab[data-g=all]{--c:#ffac2e !important}
+.reco .rbar{background:rgba(255,255,255,.14)}
+.reco .rbar i{background:var(--gold)}
+/* kartu sorotan */
+.rcard{background:#fff;border:0;border-radius:22px;padding:26px 24px 22px;box-shadow:0 1px 0 rgba(255,255,255,.04),0 18px 40px rgba(0,0,0,.18)}
+.rcard:hover{box-shadow:0 24px 54px rgba(0,0,0,.28);border-color:transparent}
+.rcard .rg{font-size:12px;font-weight:600;color:var(--c)}
+.rcard h3{color:#0f2638;font-size:20px;line-height:1.28}
+.rcard .rw{color:#465668;font-size:14px}
+.rcard .ro{color:#8592a3}
+.rcard .rm{gap:0;align-items:center;font-size:12.5px;color:#64748b;padding-top:10px;border-top:1px solid #edf1f5}
+.rcard .rm span,.rcard .rm span.d,.rcard .rm span.pp{background:none;border:0;padding:0;border-radius:0;font-size:12.5px;color:#64748b}
+.rcard .rm span+span::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:#a3b0bf;margin:0 8px;vertical-align:middle}
+.rcard .rm span.pp{color:#b4472f}
+.rcard .rd{font-size:12.5px;line-height:1.5;color:#0f2638;font-weight:500;margin-top:-2px}
+.reco [style*="112f47"]{--c:#8fb6dc !important}
+.rgo{border:0;padding:0;background:none !important;color:#102f46;font-weight:600;font-size:13.5px;gap:8px}
+.rgo svg{transition:transform .2s}
+.rgo:hover{color:#102f46;text-decoration:underline;text-underline-offset:4px}
+.rgo:hover svg{transform:translate(2px,-2px)}
+/* ---------- Dosen: grid bergaris tipis ---------- */
+.cards{gap:0;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.card{border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:22px 20px 20px;gap:14px;position:relative;transition:background .2s}
+.card:hover{background:var(--soft);box-shadow:none;border-color:var(--line)}
+.card.on{background:var(--soft);box-shadow:inset 0 3px 0 var(--gold)}
+.av{width:42px;height:42px;font-size:13.5px;color:#fff;background:linear-gradient(135deg,#44c8ba,#3884a4 50%,#2b4796) !important;font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:.3px}
+.card .nm{font-size:14.5px;font-weight:600;color:var(--ink)}
+.card .jb{font-size:12.5px;margin-bottom:10px}
+.card .st{gap:18px;font-size:11.5px}
+.card .st div{white-space:nowrap}
+.card .st b{font-family:'Poppins',sans-serif;font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.3px}
+.card .go{position:absolute;right:16px;top:20px;font-size:11.5px;font-weight:600;color:var(--navy);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.card:hover .go{opacity:1;transform:none}
+/* ---------- Panel pencarian ---------- */
+.bar{background:var(--soft);border:0;border-radius:24px;padding:22px 22px 18px;gap:12px}
+.bar .sbox input[type=search]{background:var(--panel);border-color:var(--line);height:50px;font-size:15px}
+.bar .sbtn{height:50px;padding:0 26px;font-size:14px}
+.fpanel{gap:12px;padding-top:4px}
+.frow .fl{font-size:12px;font-weight:600;color:var(--ink);min-width:52px}
+.chip{background:var(--panel);border:1px solid var(--line);color:#3d4d5f;font-size:12.5px;padding:6px 13px}
+.chip:hover{border-color:#9db2c6;background:var(--panel);color:var(--ink)}
+.chip.on,.chip.th.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.bar select{background:var(--panel);border-color:var(--line)}
+.qsug{font-size:12.5px}
+.qsug button{border:0;background:var(--panel);color:var(--navy);box-shadow:inset 0 0 0 1px var(--line);padding:4px 12px}
+.qsug button:hover{box-shadow:inset 0 0 0 1px var(--navy);background:var(--panel)}
+.btn#reset{border-color:var(--line);color:var(--muted);background:transparent}
+.btn#reset:hover{border-color:var(--navy);color:var(--navy)}
+.active .pill{background:var(--panel);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.active .pill i{background:var(--soft);color:var(--muted)}
+.active .pill:hover{box-shadow:inset 0 0 0 1px #b4472f;color:#b4472f;background:var(--panel)}
+.count{font-size:13px;margin-top:18px}
+/* ---------- Daftar publikasi ---------- */
+.yr{margin:56px 0 0;padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.yr i{display:none}
+.yr b{font-size:clamp(34px,3.6vw,48px);font-weight:500}
+.yr span{margin-left:auto}
+.item{padding:26px 4px 24px;border-top:0;border-bottom:1px solid var(--line)}
+.item:hover{background:transparent}
+.item:hover .tt{color:var(--blue)}
+.item .tt{font-size:18px;line-height:1.38}
+.item .au{color:var(--muted)}
+.item .src{color:#7a8797;font-style:italic}
+.sm{border-left:0;padding:0;margin-top:14px;color:#334256;font-size:14.5px;line-height:1.75}
+.sm .lb{margin-bottom:6px}
+.sm .lb b{color:#c98a12;font-weight:600}
+.sm .lb i{color:#94a1b2}
+.thr{gap:6px;margin-top:14px}
+.thr .lbl{display:none}
+.tm{border:0;background:var(--soft);color:#33475c;border-radius:999px;padding:4px 11px;font-size:12px}
+.tm:hover{background:var(--navy);color:#fff}
+.sg{border-radius:999px;padding:3px 9px;font-weight:600;font-size:11px;opacity:.92}
+.meta{gap:0;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.meta .tag{background:none !important;border:0;padding:0;border-radius:0;color:var(--muted);font-size:12.5px;white-space:nowrap}
+.meta .tag+.tag::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:#a3b0bf;margin:0 9px;vertical-align:middle}
+.meta .tag.q{color:var(--ink) !important;font-weight:700}
+.meta .tag.k{color:var(--ink);font-weight:500}
+.meta .tag.w{color:#b4472f}
+.meta .tag.dos{color:var(--navy);font-weight:600;cursor:pointer}
+.meta .tag.dos:hover{text-decoration:underline;text-underline-offset:3px;background:none}
+.meta .abs{margin-left:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--navy)}
+.meta .abs:hover{border-color:var(--navy);background:var(--panel)}
+.meta .lnk{margin-left:12px;font-size:12px;color:var(--muted)}
+.meta .lnk:hover{color:var(--navy)}
+.item.dup .tt{color:var(--muted)}
+/* ---------- Catatan data ---------- */
+.note{margin-top:56px;background:var(--soft);border:0;border-left:0;border-radius:20px;padding:0;color:var(--muted)}
+.note summary{cursor:pointer;list-style:none;padding:20px 24px;font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:12px;font-size:14px}
+.note summary::-webkit-details-marker{display:none}
+.note summary::after{content:"+";margin-left:auto;font-size:20px;line-height:1;color:var(--muted);transition:transform .2s}
+.note[open] summary::after{transform:rotate(45deg)}
+.note summary span{font-weight:400;font-size:13px;color:var(--muted)}
+.note summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:20px}
+.note ul{padding:0 24px 22px 40px;margin:0}
+/* ---------- Mode gelap ---------- */
+html[data-theme=dark] .reco::before{background:radial-gradient(90% 120% at 100% 0%,#13324d 0%,#0c2235 50%,#091a2a 100%)}
+html[data-theme=dark] .rcard{background:#102438;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+html[data-theme=dark] .rcard h3{color:#eef3f8}
+html[data-theme=dark] .rcard .rw{color:#b6c4d3}
+html[data-theme=dark] .rcard .rm{border-top-color:#1c3349}
+html[data-theme=dark] .rcard .rm span,html[data-theme=dark] .rcard .rm span.d{color:#9fb1c4}
+html[data-theme=dark] .rcard .rd{color:#dde7f0}
+html[data-theme=dark] .rgo{color:var(--gold);filter:none}
+html[data-theme=dark] .rgo:hover{color:var(--gold)}
+html[data-theme=dark] .reco .rtab.on{color:#0f2638}
+html[data-theme=dark] .sm{color:#c4d0dd}
+html[data-theme=dark] .tm{background:#13263a;color:#c4d0dd}
+html[data-theme=dark] .tm:hover{background:var(--gold);color:#0a1f31}
+html[data-theme=dark] .chip.on,html[data-theme=dark] .chip.th.on{background:var(--gold);border-color:var(--gold);color:#0a1f31}
+html[data-theme=dark] .chip{color:#c4d0dd}
+html[data-theme=dark] .yr{border-bottom-color:#3a5068}
+html[data-theme=dark] .meta .tag.dos,html[data-theme=dark] .meta .abs{color:var(--navy)}
+html[data-theme=dark] .item .src{color:#8597aa}
+html[data-theme=dark] .card .go{color:var(--gold)}
+html[data-theme=dark] .card.on{box-shadow:inset 0 3px 0 var(--gold)}
+@media(max-width:720px){.bar{border-radius:18px;padding:16px 14px 14px}.bar .sbox input[type=search],.bar .sbtn{height:46px}.meta .abs{margin-left:0;margin-top:8px}.cards{grid-template-columns:1fr}.card .go{display:none}.rcard{padding:22px 20px 18px}.item .tt{font-size:16.5px}}
 </style>
 </head>
 <body>
-<div class="top"><div class="in">
-  <div>
-    <div class="eyebrow">Program Studi Meteorologi · FITB · Institut Teknologi Bandung</div>
-    <h1>Database Publikasi Dosen Meteorologi ITB</h1>
-    <div class="sub">Seluruh publikasi dosen KK Sains Atmosfer FITB ditambah Pak Yogi Sahat Maruli Simanjuntak, diurutkan dari yang terbaru. Sumber: ITB Scholar (data Scopus dan OpenAlex) serta profil staf itb.ac.id, diambil 31 Oktober 2026.</div>
+<header class="top" id="top">
+  <svg class="iso" viewBox="0 0 1240 440" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false"><g class="drift"><path class="ip" style="--d:0.00s" pathLength="1" d="M979.1,215.0 C980.2,216.9 981.2,219.0 981.5,221.0 C981.8,223.1 981.7,225.3 981.1,227.3 C980.5,229.3 979.3,231.3 977.8,233.1 C976.4,234.8 974.4,236.4 972.3,237.8 C970.3,239.2 967.9,240.3 965.7,241.4 C963.4,242.5 961.0,243.4 958.7,244.3 C956.4,245.2 954.1,246.0 951.8,246.7 C949.5,247.5 947.2,248.2 944.8,248.7 C942.4,249.3 939.9,249.8 937.5,250.0 C935.0,250.2 932.4,250.3 930.0,250.0 C927.6,249.8 925.1,249.3 922.8,248.6 C920.6,247.9 918.4,246.9 916.4,245.9 C914.5,244.9 912.7,243.7 911.0,242.6 C909.4,241.4 907.9,240.2 906.4,239.1 C904.9,237.9 903.5,236.8 902.1,235.6 C900.8,234.5 899.4,233.4 898.1,232.2 C896.8,231.0 895.5,229.8 894.3,228.5 C893.2,227.2 892.1,225.8 891.2,224.3 C890.3,222.9 889.6,221.4 888.9,219.8 C888.3,218.3 887.8,216.7 887.3,215.0 C886.8,213.3 886.4,211.6 886.1,209.8 C885.7,208.0 885.3,206.2 885.1,204.2 C884.9,202.2 884.6,200.1 884.8,197.9 C885.0,195.8 885.2,193.5 886.1,191.4 C886.9,189.2 888.1,187.0 889.7,185.2 C891.4,183.3 893.6,181.6 896.1,180.4 C898.5,179.2 901.5,178.3 904.4,177.8 C907.3,177.3 910.6,177.4 913.6,177.6 C916.6,177.9 919.6,178.6 922.4,179.3 C925.1,180.0 927.7,181.1 930.0,182.0 C932.3,183.0 934.4,184.0 936.4,185.0 C938.4,185.9 940.2,186.8 942.0,187.7 C943.7,188.6 945.4,189.5 947.0,190.3 C948.6,191.2 950.1,192.0 951.6,192.9 C953.1,193.8 954.6,194.8 956.0,195.7 C957.5,196.7 958.9,197.7 960.3,198.7 C961.8,199.7 963.3,200.7 964.9,201.8 C966.4,203.0 968.1,204.1 969.8,205.4 C971.4,206.7 973.3,208.1 974.8,209.7 C976.4,211.3 978.0,213.1 979.1,215.0Z"/><path class="ip" style="--d:0.09s" pathLength="1" d="M1032.2,215.0 C1033.4,218.9 1034.3,223.1 1034.4,227.3 C1034.6,231.4 1034.2,235.7 1032.9,239.8 C1031.7,243.8 1029.6,247.9 1026.9,251.6 C1024.2,255.2 1020.5,258.6 1016.6,261.6 C1012.6,264.5 1007.9,267.1 1003.2,269.3 C998.6,271.5 993.5,273.2 988.6,274.8 C983.8,276.4 978.8,277.7 974.0,278.9 C969.1,280.2 964.4,281.4 959.5,282.3 C954.7,283.3 949.9,284.3 944.9,284.8 C940.0,285.4 934.9,285.8 930.0,285.6 C925.1,285.4 920.0,284.7 915.3,283.5 C910.7,282.4 906.2,280.5 902.2,278.5 C898.2,276.4 894.6,273.7 891.4,271.1 C888.3,268.5 885.7,265.5 883.1,262.8 C880.5,260.2 878.4,257.5 875.9,255.1 C873.4,252.7 871.0,250.5 868.2,248.3 C865.4,246.0 862.3,244.0 859.1,241.7 C856.0,239.4 852.4,237.2 849.1,234.5 C845.8,231.8 842.4,228.9 839.5,225.6 C836.7,222.4 834.1,218.8 832.2,215.0 C830.3,211.2 828.9,207.2 828.2,203.1 C827.5,199.0 827.4,194.6 827.8,190.4 C828.3,186.2 829.3,181.8 831.0,177.6 C832.6,173.4 834.8,169.2 837.7,165.3 C840.6,161.5 844.1,157.6 848.3,154.4 C852.4,151.3 857.4,148.4 862.7,146.4 C868.0,144.4 874.1,142.9 880.0,142.4 C886.0,141.8 892.5,142.1 898.4,143.0 C904.3,143.8 910.3,145.6 915.5,147.4 C920.8,149.2 925.6,151.7 930.0,153.7 C934.4,155.8 938.1,158.0 941.8,159.8 C945.5,161.5 948.8,162.9 952.3,164.1 C955.9,165.2 959.4,165.9 963.2,166.7 C967.0,167.5 971.1,168.0 975.3,168.8 C979.5,169.7 984.0,170.5 988.2,171.9 C992.4,173.3 996.7,174.9 1000.6,177.0 C1004.5,179.0 1008.3,181.5 1011.6,184.2 C1014.9,186.9 1017.8,190.0 1020.4,193.2 C1023.1,196.5 1025.4,200.0 1027.4,203.6 C1029.3,207.2 1031.0,211.1 1032.2,215.0Z"/><path class="ip" style="--d:0.18s" pathLength="1" d="M1084.6,215.0 C1084.6,221.0 1083.9,227.0 1083.0,233.0 C1082.1,238.9 1080.9,244.9 1079.0,250.9 C1077.1,256.8 1074.8,262.8 1071.6,268.4 C1068.4,274.1 1064.4,279.8 1059.5,284.7 C1054.7,289.7 1048.7,294.4 1042.3,298.2 C1035.9,302.1 1028.5,305.3 1021.1,307.8 C1013.6,310.4 1005.6,312.2 997.8,313.5 C990.0,314.9 982.0,315.6 974.4,316.1 C966.7,316.7 959.1,316.8 951.7,316.7 C944.3,316.6 937.1,316.2 930.0,315.5 C922.9,314.7 915.9,313.7 909.2,312.1 C902.6,310.5 896.1,308.4 890.1,305.9 C884.2,303.4 878.7,300.2 873.6,296.9 C868.6,293.7 864.3,289.9 860.1,286.3 C855.8,282.7 852.3,279.0 848.2,275.6 C844.1,272.2 840.3,269.0 835.6,265.8 C830.9,262.6 825.7,259.8 820.1,256.5 C814.4,253.2 807.8,250.0 801.5,245.9 C795.2,241.9 788.1,237.5 782.4,232.3 C776.6,227.2 770.8,221.2 767.0,215.0 C763.2,208.8 760.4,201.7 759.5,195.0 C758.7,188.3 759.6,181.1 761.9,174.5 C764.2,168.0 768.4,161.6 773.4,155.9 C778.3,150.2 784.8,145.0 791.5,140.5 C798.2,136.0 805.9,132.1 813.6,128.8 C821.3,125.6 829.6,122.9 837.7,120.9 C845.9,118.9 854.3,117.6 862.5,116.9 C870.8,116.3 879.1,116.4 887.0,117.0 C894.9,117.6 902.7,119.1 909.8,120.7 C917.0,122.3 923.7,124.7 930.0,126.7 C936.3,128.7 941.9,131.1 947.5,132.9 C953.2,134.8 958.3,136.4 964.0,137.6 C969.6,138.7 975.2,139.4 981.5,140.1 C987.8,140.8 994.7,140.9 1001.8,141.8 C1008.9,142.7 1016.8,143.4 1024.2,145.2 C1031.7,147.0 1039.6,149.2 1046.3,152.4 C1053.0,155.6 1059.5,159.6 1064.7,164.2 C1069.8,168.7 1073.9,174.1 1077.0,179.6 C1080.1,185.1 1081.9,191.1 1083.1,197.0 C1084.4,202.9 1084.6,209.0 1084.6,215.0Z"/><path class="ip" style="--d:0.27s" pathLength="1" d="M1139.3,215.0 C1138.2,223.1 1135.9,231.0 1133.5,238.9 C1131.2,246.7 1128.3,254.3 1125.2,262.0 C1122.1,269.6 1118.9,277.3 1114.9,284.8 C1110.8,292.3 1106.5,299.9 1100.8,306.9 C1095.1,313.9 1088.5,320.9 1080.7,326.6 C1072.9,332.3 1063.6,337.6 1053.8,341.3 C1044.1,345.0 1032.9,347.5 1022.1,348.9 C1011.3,350.2 999.7,350.1 989.0,349.5 C978.3,348.8 967.6,346.9 957.8,345.1 C948.0,343.3 938.8,340.7 930.0,338.6 C921.2,336.4 913.1,334.1 905.0,332.0 C896.9,329.9 889.2,328.0 881.4,325.9 C873.5,323.8 865.8,321.8 858.2,319.4 C850.5,317.0 842.9,314.5 835.4,311.5 C827.8,308.5 820.4,305.3 813.0,301.7 C805.5,298.1 798.1,294.3 790.4,290.1 C782.7,285.9 774.9,281.6 766.8,276.6 C758.7,271.6 750.0,266.4 741.9,260.3 C733.7,254.2 724.9,247.4 717.8,239.9 C710.7,232.3 703.7,223.8 699.3,215.0 C695.0,206.2 691.9,196.3 691.8,187.1 C691.8,177.8 694.2,167.9 698.9,159.4 C703.7,150.9 711.5,142.6 720.3,135.8 C729.0,129.1 740.5,123.5 751.5,118.9 C762.6,114.4 775.1,111.4 786.6,108.8 C798.2,106.2 809.9,104.9 820.6,103.5 C831.4,102.1 841.5,101.3 851.2,100.4 C860.9,99.6 869.8,98.8 878.8,98.2 C887.7,97.5 896.1,96.9 904.7,96.6 C913.2,96.3 921.6,96.2 930.0,96.4 C938.4,96.7 946.7,97.3 955.0,98.2 C963.3,99.0 971.4,100.2 979.8,101.5 C988.2,102.7 996.5,104.1 1005.2,105.6 C1014.0,107.2 1023.0,108.6 1032.3,110.7 C1041.6,112.7 1051.5,114.8 1061.1,117.9 C1070.7,120.9 1080.9,124.4 1089.8,129.0 C1098.7,133.6 1107.6,139.1 1114.6,145.3 C1121.6,151.6 1127.7,158.9 1131.9,166.4 C1136.0,173.9 1138.5,182.3 1139.7,190.4 C1140.9,198.5 1140.3,206.9 1139.3,215.0Z"/><path class="ip" style="--d:0.36s" pathLength="1" d="M1199.2,215.0 C1199.0,225.3 1196.6,235.9 1193.5,245.9 C1190.3,255.9 1185.5,265.8 1180.3,275.2 C1175.1,284.7 1169.0,293.9 1162.3,302.7 C1155.7,311.5 1148.5,320.2 1140.4,328.2 C1132.2,336.2 1123.4,344.2 1113.3,350.8 C1103.3,357.5 1092.1,363.7 1080.1,368.1 C1068.2,372.5 1054.8,375.8 1041.6,377.3 C1028.5,378.8 1014.3,378.5 1001.2,377.2 C988.1,376.0 974.9,372.7 963.1,369.7 C951.2,366.6 940.3,362.3 930.0,359.0 C919.7,355.6 910.7,352.1 901.2,349.7 C891.7,347.4 883.0,345.8 873.1,344.6 C863.3,343.5 853.2,343.5 842.0,342.9 C830.9,342.3 818.8,342.3 806.4,341.0 C794.0,339.7 780.6,338.2 767.8,335.1 C755.1,332.1 741.8,328.0 729.9,322.7 C718.0,317.4 706.3,310.7 696.1,303.3 C685.9,295.8 676.6,287.1 668.7,277.9 C660.8,268.7 653.9,258.5 648.8,248.0 C643.7,237.5 639.8,226.2 638.1,215.0 C636.5,203.8 636.3,191.9 638.9,180.8 C641.5,169.8 646.3,158.4 653.5,148.4 C660.7,138.5 670.7,129.0 681.9,121.4 C693.1,113.7 707.1,107.3 720.7,102.4 C734.4,97.4 749.7,94.4 763.7,91.8 C777.7,89.3 791.8,88.4 804.5,87.1 C817.2,85.8 828.9,85.3 839.8,83.9 C850.8,82.5 860.4,80.9 870.3,78.8 C880.1,76.6 889.2,73.7 899.2,71.0 C909.2,68.3 919.2,64.9 930.0,62.6 C940.8,60.3 952.2,58.1 963.7,57.3 C975.2,56.5 987.3,56.5 999.0,57.7 C1010.6,58.9 1022.4,61.3 1033.6,64.3 C1044.9,67.4 1055.8,71.5 1066.5,75.8 C1077.2,80.2 1087.6,85.3 1097.8,90.7 C1108.1,96.1 1118.4,101.9 1128.2,108.4 C1137.9,114.8 1147.9,121.8 1156.5,129.5 C1165.1,137.3 1173.6,145.8 1180.0,154.8 C1186.4,163.9 1191.7,173.9 1194.9,183.9 C1198.1,193.9 1199.5,204.7 1199.2,215.0Z"/><path class="ip" style="--d:0.45s" pathLength="1" d="M1262.3,215.0 C1264.3,227.7 1263.9,241.2 1260.8,253.8 C1257.7,266.4 1251.5,279.1 1243.8,290.5 C1236.0,301.9 1225.4,312.7 1214.4,322.3 C1203.3,331.9 1190.3,340.5 1177.4,348.2 C1164.5,355.8 1150.7,362.5 1137.0,368.3 C1123.2,374.1 1109.1,379.1 1094.9,383.1 C1080.7,387.0 1066.1,390.1 1051.8,392.0 C1037.4,393.9 1022.7,394.6 1008.7,394.4 C994.7,394.2 980.7,392.5 967.6,390.7 C954.5,389.0 942.0,385.9 930.0,383.7 C918.0,381.4 907.0,378.8 895.3,377.3 C883.6,375.9 872.6,375.0 859.9,374.9 C847.2,374.7 834.0,375.9 819.0,376.4 C804.0,376.9 787.4,378.4 770.1,378.0 C752.9,377.6 733.5,377.0 715.6,373.8 C697.6,370.7 678.4,366.0 662.3,359.1 C646.1,352.2 630.6,342.9 618.9,332.4 C607.1,322.0 597.8,309.2 591.7,296.4 C585.5,283.7 582.8,269.4 582.2,255.8 C581.5,242.2 584.1,228.2 587.9,215.0 C591.6,201.8 597.7,188.9 604.7,176.8 C611.7,164.8 620.2,153.2 629.7,142.7 C639.1,132.2 649.9,122.3 661.5,113.7 C673.1,105.0 686.1,97.3 699.3,90.8 C712.5,84.4 726.9,79.2 740.8,74.8 C754.7,70.5 769.1,67.6 782.6,64.7 C796.1,61.8 809.2,60.0 821.7,57.5 C834.2,55.0 845.7,52.7 857.5,49.7 C869.3,46.6 880.3,43.0 892.4,39.2 C904.5,35.5 916.7,30.8 930.0,27.3 C943.3,23.7 957.6,19.8 972.1,17.9 C986.7,16.0 1002.5,14.8 1017.4,15.7 C1032.4,16.5 1047.9,19.2 1061.9,23.2 C1076.0,27.2 1089.6,33.2 1102.0,39.7 C1114.4,46.1 1125.6,54.1 1136.5,62.0 C1147.4,70.0 1157.3,78.6 1167.3,87.3 C1177.4,96.0 1187.3,104.8 1196.9,114.3 C1206.6,123.7 1216.7,133.4 1225.3,143.9 C1234.0,154.5 1242.8,165.7 1249.0,177.6 C1255.2,189.4 1260.3,202.3 1262.3,215.0Z"/><path class="ip" style="--d:0.54s" pathLength="1" d="M1321.9,215.0 C1324.8,230.0 1325.6,246.1 1322.2,261.0 C1318.7,275.9 1311.6,291.2 1301.4,304.4 C1291.2,317.6 1276.6,329.9 1261.1,340.0 C1245.6,350.0 1226.5,358.2 1208.4,364.9 C1190.4,371.5 1170.6,375.9 1152.6,379.9 C1134.7,383.9 1116.9,386.2 1100.6,388.9 C1084.2,391.6 1069.2,393.6 1054.6,396.1 C1039.9,398.5 1026.5,401.1 1012.7,403.6 C999.0,406.2 985.8,409.0 972.0,411.4 C958.2,413.8 944.4,416.2 930.0,418.1 C915.6,420.0 901.0,421.6 885.5,422.9 C870.1,424.2 854.4,425.3 837.5,426.0 C820.6,426.7 802.9,427.3 784.1,427.1 C765.3,426.8 745.1,426.5 724.7,424.3 C704.3,422.1 682.1,419.3 661.5,413.9 C641.0,408.5 619.3,401.4 601.4,391.9 C583.5,382.4 566.3,370.2 554.1,356.9 C542.0,343.5 532.9,327.4 528.5,311.6 C524.1,295.9 524.5,278.3 527.7,262.2 C531.0,246.1 539.1,229.7 547.9,215.0 C556.6,200.3 568.8,186.6 580.1,174.0 C591.4,161.3 604.0,150.1 615.6,139.3 C627.2,128.5 638.5,118.8 649.6,109.2 C660.7,99.5 671.0,90.4 682.2,81.6 C693.3,72.9 704.3,64.3 716.3,56.7 C728.3,49.1 741.0,41.9 754.2,35.8 C767.5,29.7 781.6,24.5 795.8,19.9 C810.0,15.4 824.7,11.9 839.4,8.5 C854.1,5.1 868.8,2.4 883.9,-0.4 C899.0,-3.3 914.1,-6.1 930.0,-8.5 C945.9,-11.0 962.2,-13.7 979.2,-15.1 C996.2,-16.5 1014.1,-17.8 1031.8,-17.1 C1049.5,-16.4 1068.1,-14.6 1085.4,-10.9 C1102.8,-7.2 1120.1,-1.7 1135.9,5.1 C1151.6,11.9 1166.3,20.7 1179.8,30.0 C1193.3,39.2 1205.2,49.9 1216.8,60.7 C1228.4,71.4 1238.8,82.8 1249.2,94.5 C1259.6,106.2 1269.8,118.2 1279.1,131.0 C1288.4,143.7 1298.0,157.0 1305.2,171.0 C1312.3,185.0 1319.1,200.0 1321.9,215.0Z"/><path class="ip" style="--d:0.63s" pathLength="1" d="M1371.3,215.0 C1370.8,232.0 1368.3,249.5 1362.1,265.7 C1356.0,281.9 1346.7,298.3 1334.3,312.3 C1321.9,326.4 1305.5,339.5 1287.7,350.0 C1270.0,360.5 1248.5,368.9 1228.0,375.4 C1207.5,381.8 1184.9,385.5 1164.8,388.9 C1144.6,392.3 1124.8,393.4 1107.3,395.8 C1089.8,398.2 1074.4,399.9 1059.7,403.5 C1045.0,407.2 1032.6,411.9 1019.0,417.8 C1005.4,423.8 992.8,431.8 978.0,439.4 C963.2,447.1 947.6,456.4 930.0,463.8 C912.4,471.3 892.9,479.0 872.5,484.1 C852.0,489.2 829.6,493.0 807.5,494.3 C785.3,495.6 762.0,494.8 739.5,492.0 C717.0,489.1 694.2,484.0 672.7,477.3 C651.2,470.6 629.8,461.9 610.4,451.7 C591.0,441.6 572.0,429.6 556.1,416.2 C540.1,402.9 525.4,387.7 514.8,371.7 C504.2,355.7 496.2,337.8 492.6,320.3 C489.0,302.7 489.5,283.8 493.3,266.2 C497.1,248.7 505.7,230.9 515.4,215.0 C525.1,199.1 538.9,184.2 551.6,170.6 C564.4,157.1 579.2,145.2 592.0,133.6 C604.8,122.1 617.4,111.9 628.7,101.3 C640.1,90.6 649.9,80.4 660.1,69.8 C670.4,59.1 679.4,48.0 690.2,37.4 C701.1,26.8 712.1,15.7 725.2,6.2 C738.2,-3.3 752.9,-12.5 768.6,-19.6 C784.3,-26.8 802.0,-32.5 819.6,-36.6 C837.3,-40.7 856.1,-42.8 874.5,-44.4 C892.9,-46.0 911.5,-46.0 930.0,-46.2 C948.5,-46.3 966.8,-45.9 985.7,-45.5 C1004.6,-45.1 1023.7,-44.9 1043.5,-43.8 C1063.4,-42.8 1084.1,-41.9 1104.9,-39.2 C1125.6,-36.5 1147.4,-33.2 1167.9,-27.6 C1188.4,-22.0 1209.3,-14.8 1227.9,-5.7 C1246.5,3.4 1264.2,14.6 1279.5,26.9 C1294.8,39.2 1308.2,53.4 1319.6,68.0 C1331.0,82.5 1340.3,98.4 1348.0,114.4 C1355.6,130.4 1361.6,147.1 1365.5,163.9 C1369.4,180.7 1371.9,198.0 1371.3,215.0Z"/><path class="ip" style="--d:0.72s" pathLength="1" d="M1406.8,215.0 C1398.7,233.4 1387.8,251.0 1376.0,267.3 C1364.2,283.6 1350.6,298.9 1335.9,312.7 C1321.3,326.5 1305.0,339.1 1288.1,350.2 C1271.2,361.2 1252.7,370.7 1234.4,378.8 C1216.2,387.0 1196.8,393.3 1178.7,399.2 C1160.5,405.1 1142.4,409.2 1125.7,414.5 C1108.9,419.7 1093.5,424.2 1078.3,430.7 C1063.2,437.1 1049.7,444.4 1034.6,453.5 C1019.5,462.5 1005.1,473.6 987.7,484.7 C970.2,495.8 951.5,509.1 930.0,519.9 C908.5,530.7 884.0,542.3 858.5,549.6 C833.0,556.9 804.2,562.6 777.0,563.7 C749.8,564.9 720.8,562.4 695.1,556.5 C669.4,550.5 644.3,540.2 622.7,528.3 C601.1,516.4 582.0,500.8 565.6,485.0 C549.1,469.1 535.7,451.1 524.2,433.4 C512.6,415.7 503.5,397.1 496.2,378.7 C488.8,360.4 483.3,341.7 480.0,323.3 C476.8,304.9 475.3,286.2 476.6,268.2 C478.0,250.1 481.8,232.0 487.9,215.0 C494.0,198.0 503.2,181.4 513.3,166.1 C523.5,150.8 536.4,136.6 548.8,123.3 C561.2,109.9 575.1,97.9 587.9,85.9 C600.8,73.9 613.5,62.8 625.9,51.3 C638.3,39.8 649.8,28.3 662.4,16.8 C675.0,5.2 687.2,-6.9 701.5,-18.0 C715.8,-29.0 731.0,-40.4 748.0,-49.6 C765.0,-58.8 784.0,-67.2 803.6,-73.1 C823.2,-79.1 844.7,-83.1 865.8,-85.5 C886.8,-87.8 908.7,-87.8 930.0,-87.4 C951.3,-87.1 972.4,-85.1 993.8,-83.5 C1015.3,-82.0 1036.3,-80.0 1058.6,-78.2 C1080.9,-76.3 1103.8,-75.1 1127.8,-72.5 C1151.8,-70.0 1177.4,-67.8 1202.6,-62.9 C1227.7,-58.0 1254.7,-52.3 1278.8,-43.4 C1302.9,-34.4 1327.3,-23.1 1347.1,-9.5 C1366.8,4.2 1384.5,21.1 1397.1,38.7 C1409.8,56.3 1418.3,76.7 1422.8,96.4 C1427.4,116.1 1427.0,137.2 1424.4,157.0 C1421.7,176.8 1414.8,196.6 1406.8,215.0Z"/><path class="ip" style="--d:0.81s" pathLength="1" d="M1427.2,215.0 C1411.8,234.2 1391.9,251.4 1374.3,267.1 C1356.7,282.8 1337.9,296.2 1321.5,309.2 C1305.0,322.3 1289.9,333.7 1275.7,345.5 C1261.6,357.3 1249.3,368.5 1236.6,380.0 C1223.9,391.6 1212.4,403.1 1199.5,414.6 C1186.7,426.2 1173.8,437.7 1159.7,449.1 C1145.5,460.6 1130.6,471.8 1114.4,483.1 C1098.2,494.4 1081.2,505.7 1062.5,517.0 C1043.7,528.4 1024.0,540.1 1001.9,551.2 C979.8,562.3 956.0,574.1 930.0,583.6 C904.0,593.1 875.3,602.7 845.9,608.2 C816.5,613.8 784.2,617.8 753.7,617.0 C723.2,616.1 691.0,611.7 662.9,603.3 C634.9,594.8 607.7,581.5 585.5,566.3 C563.3,551.0 544.5,531.2 529.7,511.5 C514.8,491.9 504.7,469.5 496.3,448.4 C487.9,427.3 483.5,405.6 479.1,385.2 C474.7,364.7 472.3,345.0 469.7,325.8 C467.1,306.5 464.7,288.2 463.4,269.7 C462.1,251.3 460.7,233.1 462.0,215.0 C463.3,196.9 465.5,178.6 471.0,161.2 C476.6,143.7 484.7,126.3 495.1,110.3 C505.5,94.4 519.3,79.2 533.6,65.4 C548.0,51.6 565.0,39.2 581.4,27.4 C597.8,15.6 615.3,5.1 632.2,-5.6 C649.2,-16.3 665.9,-26.4 683.1,-36.7 C700.3,-47.1 717.2,-57.7 735.6,-67.6 C753.9,-77.6 772.8,-88.0 793.3,-96.7 C813.8,-105.4 835.6,-113.6 858.4,-119.8 C881.2,-125.9 905.5,-130.5 930.0,-133.4 C954.5,-136.3 979.8,-137.1 1005.3,-137.1 C1030.7,-137.0 1056.4,-135.2 1082.6,-132.8 C1108.8,-130.5 1135.3,-127.3 1162.5,-123.0 C1189.7,-118.7 1217.9,-113.9 1245.7,-106.9 C1273.5,-99.9 1302.9,-91.9 1329.4,-80.8 C1355.8,-69.7 1382.9,-56.4 1404.4,-40.3 C1425.8,-24.2 1445.5,-4.8 1458.1,15.7 C1470.6,36.2 1478.3,60.0 1479.8,82.7 C1481.3,105.4 1475.7,129.9 1467.0,152.0 C1458.2,174.1 1442.7,195.8 1427.2,215.0Z"/><path class="ip hi" style="--d:0.50s" pathLength="1" d="M371.3,470.0 C369.7,476.6 367.0,482.9 364.6,489.3 C362.1,495.6 359.3,501.7 356.4,507.9 C353.6,514.1 350.9,520.3 347.4,526.5 C343.8,532.7 340.3,539.1 335.3,545.1 C330.3,551.0 324.6,557.1 317.5,562.2 C310.5,567.3 302.0,572.1 292.9,575.7 C283.7,579.3 273.1,582.0 262.7,583.7 C252.3,585.4 240.9,585.9 230.3,586.0 C219.7,586.0 208.9,585.0 198.9,583.9 C188.8,582.8 179.2,581.2 170.0,579.6 C160.8,578.1 152.1,576.4 143.5,574.7 C134.9,573.0 126.6,571.3 118.3,569.4 C110.1,567.5 102.0,565.5 94.1,563.1 C86.2,560.7 78.5,558.1 71.0,555.1 C63.6,552.2 56.5,548.9 49.4,545.4 C42.3,541.9 35.6,538.1 28.6,534.2 C21.6,530.3 14.7,526.2 7.4,521.8 C0.2,517.3 -7.4,512.7 -14.7,507.5 C-22.0,502.3 -29.8,496.7 -36.1,490.4 C-42.5,484.2 -48.9,477.2 -52.7,470.0 C-56.6,462.8 -59.3,454.8 -59.3,447.3 C-59.2,439.8 -56.8,431.8 -52.3,424.8 C-47.8,417.9 -40.5,411.2 -32.3,405.6 C-24.0,400.0 -13.3,395.3 -3.0,391.4 C7.3,387.6 19.0,384.8 29.8,382.4 C40.6,379.9 51.5,378.4 61.6,376.8 C71.7,375.1 81.3,373.9 90.6,372.6 C99.9,371.3 108.6,370.0 117.5,368.9 C126.3,367.8 134.9,366.7 143.6,366.0 C152.4,365.2 161.2,364.7 170.0,364.6 C178.8,364.5 187.7,364.8 196.5,365.5 C205.3,366.1 214.0,367.2 222.8,368.4 C231.6,369.6 240.4,371.0 249.3,372.7 C258.3,374.3 267.4,376.1 276.7,378.3 C285.9,380.4 295.5,382.7 304.7,385.8 C313.9,388.9 323.4,392.3 331.6,396.6 C339.8,400.9 347.9,405.9 354.0,411.4 C360.1,416.9 365.2,423.3 368.4,429.7 C371.7,436.1 373.2,443.1 373.7,449.8 C374.1,456.6 372.8,463.4 371.3,470.0Z"/><path class="ip hi" style="--d:0.59s" pathLength="1" d="M444.2,470.0 C443.7,478.9 441.2,487.9 438.2,496.5 C435.1,505.2 430.5,513.7 425.7,521.9 C420.9,530.2 415.4,538.3 409.3,546.2 C403.2,554.2 396.9,562.1 389.3,569.6 C381.7,577.1 373.5,584.6 363.8,591.1 C354.1,597.6 343.1,603.9 331.0,608.5 C319.0,613.2 305.2,616.9 291.5,619.0 C277.7,621.1 262.6,621.6 248.6,621.1 C234.5,620.6 220.1,618.3 207.0,616.0 C193.9,613.7 181.6,610.1 170.0,607.3 C158.4,604.4 148.0,601.3 137.3,598.9 C126.6,596.6 116.7,594.8 105.9,593.4 C95.0,591.9 84.0,591.2 72.1,590.1 C60.3,588.9 47.5,588.2 34.8,586.3 C22.1,584.4 8.4,582.3 -4.3,579.0 C-17.1,575.6 -30.1,571.3 -41.7,566.1 C-53.3,560.9 -64.4,554.6 -74.1,547.7 C-83.8,540.8 -92.5,533.0 -99.9,524.8 C-107.2,516.6 -113.6,507.7 -118.3,498.5 C-123.1,489.4 -126.8,479.7 -128.4,470.0 C-129.9,460.3 -130.0,450.1 -127.6,440.5 C-125.2,430.9 -120.6,421.1 -113.7,412.4 C-106.7,403.7 -97.0,395.3 -86.1,388.4 C-75.2,381.5 -61.5,375.7 -48.1,371.0 C-34.7,366.3 -19.5,363.0 -5.6,360.2 C8.3,357.4 22.4,356.0 35.2,354.1 C48.1,352.2 60.0,351.0 71.4,349.0 C82.8,347.0 92.9,344.8 103.6,342.3 C114.3,339.7 124.3,336.4 135.4,333.5 C146.5,330.7 157.9,327.3 170.0,325.1 C182.1,322.9 195.1,321.0 207.9,320.4 C220.7,319.9 234.3,320.3 247.1,321.8 C259.8,323.3 272.6,326.1 284.6,329.5 C296.6,332.8 308.0,337.3 318.9,341.9 C329.9,346.5 340.2,351.8 350.3,357.3 C360.5,362.8 370.3,368.6 379.6,374.8 C388.9,381.1 398.2,387.6 406.3,394.8 C414.3,401.9 422.0,409.6 427.8,417.6 C433.6,425.7 438.3,434.4 441.0,443.2 C443.8,451.9 444.7,461.1 444.2,470.0Z"/><path class="ip hi" style="--d:0.68s" pathLength="1" d="M522.3,470.0 C524.8,481.4 525.1,493.5 522.5,504.9 C520.0,516.3 514.3,527.9 507.0,538.4 C499.7,549.0 489.6,559.1 478.8,568.3 C468.0,577.5 455.2,586.0 442.3,593.7 C429.4,601.4 415.5,608.3 401.3,614.5 C387.1,620.8 372.3,626.4 357.1,630.9 C341.9,635.5 326.0,639.3 310.1,641.9 C294.2,644.4 277.6,645.9 261.6,646.2 C245.6,646.6 229.4,645.5 214.1,644.0 C198.8,642.6 184.1,639.8 170.0,637.5 C155.9,635.2 142.9,632.3 129.4,630.4 C115.8,628.5 103.1,626.9 88.9,626.0 C74.7,625.0 60.1,625.1 43.9,624.7 C27.7,624.3 9.9,624.7 -8.3,623.4 C-26.6,622.2 -46.8,620.8 -65.5,617.2 C-84.2,613.6 -104.0,608.7 -120.4,601.9 C-136.9,595.1 -152.5,586.2 -164.3,576.5 C-176.1,566.7 -185.2,555.0 -191.1,543.3 C-196.9,531.7 -199.2,518.8 -199.6,506.6 C-200.0,494.4 -197.1,481.8 -193.2,470.0 C-189.4,458.2 -183.3,446.6 -176.4,435.7 C-169.6,424.8 -161.3,414.3 -152.1,404.6 C-142.9,394.8 -132.6,385.6 -121.2,377.3 C-109.8,369.0 -97.1,361.3 -83.8,354.7 C-70.5,348.2 -55.9,342.6 -41.6,337.7 C-27.3,332.9 -12.1,329.3 2.3,325.7 C16.7,322.1 30.9,319.5 44.8,316.4 C58.6,313.3 71.7,310.3 85.2,306.9 C98.8,303.5 111.8,299.6 125.9,295.9 C140.0,292.2 154.5,287.9 170.0,284.7 C185.5,281.6 202.2,278.3 218.9,277.1 C235.6,275.8 253.5,275.5 270.3,277.1 C287.0,278.8 304.1,282.2 319.3,286.9 C334.6,291.5 348.9,298.1 361.8,305.0 C374.7,311.9 385.9,320.2 396.7,328.3 C407.6,336.4 417.0,344.9 426.8,353.4 C436.5,361.9 445.9,370.3 455.4,379.1 C464.8,387.9 474.7,396.8 483.4,406.4 C492.1,415.9 501.2,426.0 507.7,436.6 C514.2,447.2 519.9,458.6 522.3,470.0Z"/><path class="ip hi" style="--d:0.77s" pathLength="1" d="M599.3,470.0 C603.6,483.9 605.9,498.9 603.6,512.9 C601.2,527.0 595.0,541.6 585.2,554.3 C575.5,567.1 560.9,579.3 545.0,589.4 C529.2,599.6 509.3,608.2 490.1,615.4 C471.0,622.6 449.8,627.8 430.2,632.6 C410.6,637.4 390.9,640.7 372.5,644.2 C354.1,647.7 336.8,650.6 319.7,653.6 C302.6,656.7 286.5,659.7 270.0,662.4 C253.5,665.2 237.4,668.0 220.7,670.1 C204.0,672.2 187.2,674.1 170.0,675.3 C152.8,676.5 135.4,677.2 117.4,677.5 C99.5,677.8 81.4,677.6 62.3,677.1 C43.3,676.6 23.8,676.0 3.2,674.6 C-17.4,673.3 -39.2,671.9 -61.2,668.9 C-83.1,665.9 -106.8,662.4 -128.6,656.6 C-150.5,650.9 -173.4,643.8 -192.3,634.5 C-211.2,625.3 -229.3,613.8 -242.0,601.2 C-254.7,588.6 -264.1,573.7 -268.6,559.1 C-273.2,544.5 -272.6,528.3 -269.2,513.5 C-265.7,498.6 -257.1,483.6 -248.2,470.0 C-239.3,456.4 -226.8,443.7 -215.5,431.8 C-204.2,420.0 -191.7,409.3 -180.4,398.8 C-169.0,388.4 -158.2,378.7 -147.4,368.9 C-136.5,359.2 -126.5,349.6 -115.3,340.4 C-104.1,331.3 -92.8,322.0 -80.0,313.7 C-67.2,305.5 -53.3,297.5 -38.4,290.7 C-23.5,283.9 -7.2,278.0 9.4,272.9 C25.9,267.9 43.5,264.0 61.1,260.4 C78.6,256.9 96.5,254.2 114.7,251.6 C132.8,249.0 151.1,246.8 170.0,245.0 C188.9,243.3 208.3,241.6 228.0,241.2 C247.7,240.8 268.3,240.8 288.2,242.6 C308.2,244.4 328.8,247.4 347.7,252.0 C366.6,256.7 385.2,263.1 401.8,270.6 C418.4,278.0 433.5,287.2 447.3,296.7 C461.2,306.1 473.0,316.6 484.7,327.1 C496.4,337.5 506.8,348.3 517.5,359.3 C528.2,370.3 538.9,381.3 549.0,393.0 C559.1,404.7 569.9,416.8 578.3,429.6 C586.7,442.4 595.1,456.1 599.3,470.0Z"/><path class="ip hi" style="--d:0.86s" pathLength="1" d="M667.8,470.0 C668.9,486.2 668.2,503.0 663.2,518.8 C658.2,534.7 650.0,550.8 637.8,565.0 C625.6,579.1 608.8,592.7 590.0,603.8 C571.3,614.8 548.0,624.1 525.4,631.4 C502.9,638.8 477.5,643.5 454.6,647.9 C431.7,652.2 408.7,654.3 388.0,657.5 C367.3,660.7 348.6,663.0 330.6,667.0 C312.6,671.0 296.9,675.8 279.9,681.5 C262.9,687.2 247.0,694.5 228.6,701.4 C210.3,708.2 191.1,716.3 170.0,722.5 C148.9,728.7 125.7,734.9 102.0,738.5 C78.2,742.2 52.5,744.4 27.4,744.3 C2.3,744.2 -23.7,742.0 -48.5,738.1 C-73.3,734.1 -98.1,728.1 -121.5,720.7 C-144.8,713.4 -167.7,704.4 -188.6,694.2 C-209.6,683.9 -229.8,672.2 -247.0,659.4 C-264.2,646.5 -280.2,632.2 -291.8,617.1 C-303.5,602.0 -312.5,585.3 -316.9,568.9 C-321.2,552.4 -321.4,534.8 -318.0,518.3 C-314.7,501.8 -306.3,485.2 -296.8,470.0 C-287.3,454.8 -273.5,440.6 -260.9,427.3 C-248.2,414.1 -233.6,402.3 -220.8,390.6 C-208.1,378.9 -195.9,368.3 -184.5,357.1 C-173.2,345.9 -163.5,334.8 -152.9,323.4 C-142.2,312.0 -132.6,299.9 -120.4,288.5 C-108.3,277.1 -95.4,265.1 -79.9,255.0 C-64.4,244.9 -46.6,235.2 -27.4,227.8 C-8.2,220.5 13.6,214.7 35.2,210.8 C56.9,206.9 80.2,205.2 102.7,204.3 C125.1,203.4 147.8,204.5 170.0,205.4 C192.2,206.3 213.9,208.2 235.9,209.9 C257.9,211.6 279.8,213.4 302.2,215.8 C324.6,218.1 347.6,220.4 370.4,224.2 C393.2,228.0 416.8,232.4 439.0,238.6 C461.2,244.8 483.5,252.4 503.5,261.6 C523.4,270.7 542.3,281.7 558.7,293.5 C575.1,305.3 589.5,318.7 602.1,332.4 C614.7,346.1 625.2,360.8 634.3,375.7 C643.4,390.6 651.0,406.1 656.6,421.8 C662.2,437.5 666.7,453.8 667.8,470.0Z"/><path class="ip hi" style="--d:0.95s" pathLength="1" d="M723.0,470.0 C715.9,488.0 706.0,505.5 694.6,521.9 C683.3,538.3 670.0,554.1 655.0,568.5 C640.0,582.9 623.0,596.5 604.7,608.4 C586.4,620.4 565.8,631.1 545.0,640.3 C524.2,649.5 501.5,656.9 479.9,663.7 C458.4,670.5 436.2,675.5 415.5,681.2 C394.8,686.9 375.2,691.6 355.9,698.0 C336.6,704.4 319.0,711.2 299.7,719.5 C280.5,727.8 262.0,737.8 240.4,747.6 C218.7,757.5 195.8,769.1 170.0,778.4 C144.2,787.6 115.3,797.3 85.6,803.0 C56.0,808.6 23.0,812.6 -7.9,812.3 C-38.9,812.0 -71.4,808.1 -100.1,801.3 C-128.7,794.4 -156.3,783.4 -180.0,771.1 C-203.7,758.8 -224.3,743.2 -242.2,727.6 C-260.1,712.1 -274.5,694.6 -287.3,677.7 C-300.1,660.7 -310.3,643.1 -319.1,625.8 C-327.9,608.4 -335.0,591.0 -339.9,573.5 C-344.8,556.1 -348.2,538.6 -348.6,521.3 C-348.9,504.1 -346.9,486.6 -342.2,470.0 C-337.4,453.4 -329.5,436.9 -320.1,421.5 C-310.7,406.1 -298.2,391.4 -285.9,377.4 C-273.5,363.4 -259.3,350.5 -245.8,337.6 C-232.3,324.7 -218.6,312.4 -204.6,299.9 C-190.7,287.3 -177.3,274.7 -162.3,262.3 C-147.2,249.9 -132.0,237.0 -114.2,225.5 C-96.4,214.0 -77.0,202.4 -55.5,193.4 C-34.0,184.3 -10.0,176.4 14.6,171.1 C39.2,165.8 66.0,162.9 91.9,161.8 C117.8,160.6 144.4,162.2 170.0,164.1 C195.6,165.9 220.4,169.8 245.3,172.9 C270.2,176.1 294.1,179.7 319.2,182.9 C344.4,186.2 369.7,188.8 396.4,192.3 C423.0,195.9 451.2,198.8 479.1,204.1 C507.0,209.3 536.8,215.2 563.7,223.9 C590.6,232.6 618.1,243.4 640.5,256.3 C662.9,269.3 683.3,285.1 698.3,301.8 C713.3,318.4 724.0,337.5 730.4,356.2 C736.8,374.9 738.1,394.9 736.8,413.9 C735.6,432.9 730.0,452.0 723.0,470.0Z"/><g class="lbl"><text x="997" y="180">1002</text><text x="1081" y="135">1006</text><text x="1185" y="80">1010</text><text x="1294" y="22">1014</text><text x="1386" y="-26">1018</text><text class="cen" x="930" y="222">R</text><text class="cen t" x="230" y="320">T</text></g></g></svg>
+  <nav class="nav" aria-label="Navigasi utama">
+    <a class="brand" href="#top" aria-label="MeteoMind, kembali ke atas"><img class="mm-logo" src="data:image/png;base64,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" width="36" height="36" alt=""><span>meteomind</span></a>
+    <div class="links"><a href="#reco">Sorotan</a><a href="#dosen-list">Dosen</a><a href="#semua">Publikasi</a></div>
+<button class="theme" id="theme" type="button" aria-label="Ganti ke mode gelap">
+      <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
+      <span class="tl">Gelap</span>
+    </button>
+  </nav>
+  <div class="in">
+    <div class="htxt">
+      <div class="eyebrow">Program Studi Meteorologi, FITB, Institut Teknologi Bandung</div>
+      <h1>Database Publikasi Dosen <span class="hl">Meteorologi ITB</span></h1>
+      <p class="sub">Seluruh publikasi dosen Meteorologi ITB, diurutkan dari yang terbaru. Sumber: ITB Scholar (data Scopus dan OpenAlex) serta profil staf itb.ac.id, diambil 31 Oktober 2026.</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
   </div>
-  <button class="btn gold" id="csv">Salin sebagai CSV</button>
-</div></div>
+</header>
 
 <div class="wrap">
-<div class="kpis" id="kpis"></div>
+<section class="stmt" id="stmt" aria-label="Pengantar">
+  <i class="stline" aria-hidden="true"></i>
+  <p class="stx" id="stx">Cuaca dan iklim menyentuh hampir setiap sisi hidup kita. Halaman ini mengumpulkan riset dosen Meteorologi ITB agar lebih mudah ditemukan, dipahami, dan dimanfaatkan.</p>
+</section>
 
-<div class="sec">Dosen · klik untuk melihat profil</div>
+<section class="reco" id="reco" aria-labelledby="recoTitle">
+  <div class="rhead">
+    <div>
+      <div class="ey">Sorotan riset</div>
+      <h2 id="recoTitle">Riset yang dekat dengan kehidupan kita</h2>
+      <p>Pilihan publikasi dosen Meteorologi ITB yang paling terasa dampaknya bagi masyarakat Indonesia, dari banjir dan panen sampai tagihan listrik. Pilih topik, lalu geser kartunya.</p>
+    </div>
+    <div class="rnav"><span id="rpos" aria-live="polite"></span>
+      <button class="rbtn" id="rprev" type="button" aria-label="Kartu sebelumnya"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="rbtn" id="rnext" type="button" aria-label="Kartu berikutnya"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+  </div>
+  <div class="rtabs" id="rtabs" role="tablist" aria-label="Topik rekomendasi"></div>
+  <div class="rwrap"><div class="rtrack" id="rtrack" tabindex="0" aria-label="Daftar kartu rekomendasi, geser ke samping"></div></div>
+  <div class="rbar"><i id="rbar"></i></div>
+  <div class="rhint">Geser kartu atau pakai tombol panah. Klik “Baca selengkapnya” untuk membuka ringkasan lengkapnya.</div>
+</section>
+
+<div class="sec" id="dosen-list">Dosen <small>Klik nama untuk melihat profil dan publikasinya</small></div>
 <div class="cards" id="cards"></div>
 
-<div class="sec">Publikasi</div>
+<div class="sec" id="semua">Semua publikasi <small>Cari, saring, lalu buka ringkasannya</small></div>
 <div class="bar">
-  <input type="search" id="q" placeholder="Cari judul, penulis, jurnal, atau kata kunci (misal: MJO, banjir, siklon)">
-  <select id="dosen"><option value="">Semua dosen</option></select>
-  <select id="y1"></select><select id="y2"></select>
-  <div style="width:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span style="font-size:12px;color:var(--muted)">Jenis:</span> <span id="kchips"></span></div>
-  <div style="width:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span style="font-size:12px;color:var(--muted)">Tema:</span> <span id="tchips" style="display:contents"></span></div>
-  <label class="tog"><input type="checkbox" id="q1"> Hanya Q1</label>
-  <label class="tog"><input type="checkbox" id="hide"> Sembunyikan duplikat</label>
-  <button class="btn" id="reset">Hapus semua filter</button>
+  <div class="sbox" role="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+    <input type="search" id="q" enterkeyhint="search" aria-label="Kata kunci pencarian" placeholder="Cari dalam bahasa Indonesia atau Inggris (misal: banjir, siklon, rainfall, MJO)">
+    <button class="sbtn" id="go" type="button" aria-label="Cari publikasi">Cari</button>
+  </div>
+  <div class="qhint" id="qhint" hidden></div>
+  <div class="qsug" id="qsug"><span>Coba cari:</span></div>
+  <div id="fslot" style="width:100%"><div class="fpanel" id="fpanel">
+    <div class="frow"><span class="fl">Dosen</span><select id="dosen"><option value="">Semua dosen</option></select><span class="fl" style="min-width:0;margin-left:6px">Tahun</span><select id="y1"></select><select id="y2"></select></div>
+    <div class="frow"><span class="fl">Jenis</span> <span id="kchips"></span></div>
+    <div class="frow"><span class="fl">Tema</span> <span id="tchips" style="display:contents"></span></div>
+    <div class="frow"><label class="tog"><input type="checkbox" id="q1"> Hanya Q1</label>
+    <label class="tog"><input type="checkbox" id="hide"> Sembunyikan duplikat</label>
+    <button class="btn" id="reset">Hapus semua filter</button></div>
+  </div></div>
 </div>
-<div class="count" id="count"></div>
+<div class="active" id="active"></div>
+<div class="count" id="count" aria-live="polite"></div>
 <div id="list"></div>
 
-<div class="note">
-  <b>Catatan tentang data</b>
+<details class="note">
+  <summary>Catatan tentang data <span>Sumber, metode, dan batasan</span></summary>
   <ul>
+    <li><b>Pencarian dwibahasa</b>: kata kunci boleh ditulis dalam bahasa Indonesia atau Inggris. Setiap kata dicocokkan dengan padanannya dari kamus istilah meteorologi yang tertanam di halaman ini (misalnya banjir dan flood, curah hujan dan rainfall), lalu dicari di judul, penulis, jurnal, ringkasan, dan tema. Kalau beberapa kata diketik, publikasi yang tampil adalah yang memuat semuanya.</li>
     <li><b>Ringkasan abstrak</b> adalah ringkasan berbahasa Indonesia yang disusun dari abstrak asli, bukan terjemahan resmi. Teks abstrak asli tidak disalin karena hak ciptanya milik penerbit; gunakan tombol <b>Lihat abstrak</b> untuk membaca versi aslinya di ITB Scholar. Ringkasan sudah tersedia untuk seluruh publikasi.</li>
     <li><b>Duplikat</b>: satu karya bisa muncul beberapa kali (versi preprint, software, materi pendukung, atau terindeks dua kali). Centang "Sembunyikan duplikat" untuk hanya melihat versi utamanya.</li>
     <li><b>Cakupan dosen</b>: Kandaga Pujiana tercatat di KK Sains Atmosfer pada ITB Scholar, tetapi bukan dosen Prodi Meteorologi ITB, sehingga beliau dan 17 publikasinya tidak dimasukkan.</li>
@@ -214,11 +787,31 @@ input[type=search]:focus,select:focus{outline:2px solid var(--sky);border-color:
     <li>Data pendidikan berasal dari profil staf itb.ac.id. Profil Pak Yogi, Pak Zadrach, dan Bu Atika belum tersedia di sana, jadi riwayat pendidikannya belum tercantum.</li>
     <li>Kuartil (Q1 sampai Q4) hanya tersedia untuk jurnal terindeks Scopus. Jumlah sitasi mengikuti ITB Scholar dan bisa berbeda dengan Google Scholar.</li>
   </ul>
+</details>
 </div>
-</div>
+
+<footer class="foot">
+  <div class="fin">
+    <div><a class="brand fbrand" href="#top"><img class="mm-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwCAYAAADG4PRLAAAnBklEQVR42u2deZhfZXn3P/fznPNbZ8lMMslkgZAFEiATAgMWAR0oINSXnUyqFrWv1aJvW9tar76I9QqoBa7Weqm1C77aVtvakkkAFVBcGsImS4aQjQAJSyAkIeusv+Wc8zz3+8f5TRZkSTIzIUrOdf2uTGY55zz397n35RGOwEtBWIShpUO4b5mXG/H7/fz2k2dgTECiM8gFl1N2CiKgVxGYcSSqCPKamyqBCInfAXI7qJK3QiX5AYE8h/eJXLX2uf3+ZCGGczsM25cpC/ACeqTRSo4o4GoEk/OWJft9f8nJZxCEk4jdR1AxiF6ESBYRQ97sJWvFg38LGhuBnNm7+rIHVY9qFZV7EfWE9nsk8Wa5eu3j+73H0o7g9TbUOx5AXdRpadkmQ8DpQgztbfMIzflU+F2gnZxJ31aBsmMPCVXd3lWIOYA1Kagf+goRmwIL5O3eZ1Q8QDc5biP2v6B79ZNDwOnSjoDt41UWdLl3NIC6qNPuSwS9fe4JqH4IL1cRcBLFwFL1UPV7iZ5KWDsK766gbu99xZA1QtbAYOJIeAqjtyPyfblq1bNvtIZ3BIC6qNPS2eVFUuGnd86bj9UrqforaQzzlD1EHlQTEINg3iZl7EE9IgEZA3kDvXGZrLkDJ3fIFU8uToUAQleneTuAlMOt4/bVH7p47tUI15G3p2OAQQeq8T4cJkeOXVXjUJGQok1FeNktR7lF5q9a8kZr/I0AUEFY2mHlvGWJgvCjU67A81lCOQsHVJ1D0Zo+OqIMq9ddTqp3hay1WCDWhzF8hUtX3imgurQj4Lxl7nBYrXI4uU4XnToT675NMegg9jXgRN42ETkSIlZUyVpLaGAwWYazH5cFKzYcLm4cVQBVMSJ4XXhShnnBVxH5GIHkqfyaA/dGQOasJdEyqv/Ck8ln5ManoiEajNajzWhxnS7tCETwekfbezgtXEnO/hFO85SdB7G/MeClbGBALGXncZonZ/+I08KVekfbe0TwurQj0IWjs14ZefA6Armx5s/dfso3yPApvARUXfJrouNGRkdmbYDRhIh/kqtWfvq1tDkiAdSlHYGctyzR/5p7Ann5OqFcnEY68L9RHHfAYpU0UhTrTyjrn8oHVz07RKMjDsA9+m7xnPdjzK3UBVPojd8pXPfm3NgYBgwkm/D+Wpm/5p6R1IsjwhV6a3tYA+86GjJ3IzIEXvAOBi9lEJGgRospNGTu1sVzrhPB663t4RHBgXpreyjXdsfa1XY9DcFf0++S2sYwHL32vTzgqbcBfcnnpXP1TUO0e1sAVBBubQ/k2u5YF839HI3BTfTHCSr2V1I5R6+9KS1RR30Y0JtcLwtW3ay3todc250cqtMvw+a8xXOvo97ezICL8QRHwTsAEA0JdTak331O5q+6ZTicaIYJ3ueotzfTnyRHwTtwrYgnoD9JqLc36+K5n5Nru+ND1YnmkFJAe8ALbqI/cagcBe9gQVQJ6E8c9cFNe0Bc1GlHVYTu8fMWz72O+uBmBpKjYnNExGkQ0p+k4vQg/URzUBGW85Yl+v05F9IY3Ex/fBS8EROncUxjcLN+f86Fct6yRBd2BCPKgaoYWAg/uP14xNyLMoXES62E4eg1fFb0BEYRNqH+Ii6/aj3cyIE4+wcGQHe7FbnRE8s3yZupxF6PgjeirGiIvaa0lW+K3OjpbrcjIkJ1UaeV07tjXdT2dYr2AnqToQjL0WtEMZSA3iShaC/QRW1fT2n+1kbNm4pQ7cRKF04Xn3I2GR4kUYfHHqX2KF4GRyCWiHNk/sqHhjA4aA5UEE5C9Z6ZWdDvIqJHTjUkv9kBNxEF/a7eMzPLSai+CaO9sQhd2mHlRjyDha9SZ2dQcQ6Oct9huCwV56izMxgsfFVuxLO0wx6UCNWFGG5A+VH7MSTxepSwFqk76jIcLg8xrcmLCcLjubT7ZW5AXq++5o05sKvTUI2+R8Zk8KpHwTvMHqJXJWMyVKPv0dVpDliEqnamolOevoSGoIOKS5C322WQI7GVY7StUkPFJTQEHcjTl8iNeNVftUpfB5guX6PVF4i01vVz+OWHx+Awaa+Kuj11tV41/T6mJmeObEk4vNJQESJVhC/sh80bAagLOwIRVLvaLqcQtB9uwyUFThCNMZSwUsIEBsI6nOQgrMMEIdaUMZQQreIV/BGZO1ZULJhgOCCmBk0haNeutstF0NeG2WT/nryarLXPPELGnk41cbUy99EX+QhGKyDQF0xhfTibNdXxbEqa2a0NVOMqoc1S7/uZpNs5qdjDibKecfoyuApec4gY5IjwdQQkoT9pZu3AyZw55gFUA+SQgFRHNrBEbjlu1pkALOja06u4F8BFWFmA0yVt88kHXZQOD/cpBtEEiHk1eyI/NGfzi/I0tsY5ypGHOMb6GFVQp7jE4NSQEUOziTkzv4Urx6ylLVgOcQVPDiP+yBCeonRtupL3TbifpnA76CFzo6NgLeWkU65evXgIq/1FaEuH1H71AwiKqo6+z2oQX0Ztga66a/gkH+df+2ezteKxcR+NOkiDiamzUGeUOutpCGIapUwuHqBnoMIdr7Twh+su5Kbtv09PZjrGlPEqbyievb7mM0o9NKoGE1SwWubpvuPAxq/7Xgd4M0VQHB/YD6uhN1dFRFBd1DYLSzdIYbT9Po/B+DJ9+Wn8bfb3WDrYQjbqI9BaNCLxuFjxzuNVcGrBufSTeKyCOEVixcUJvUmWWWMDbpxyF7NtN97lMaI1onkMCVifdujuiW1I2tHrbC1CKBgZmX3rVTBhmcd3nsXPXjqR69u/h69ajAzDL0RLONplwepnhjBLOfBb7YEqgpUFNITFtC9v9MBTDEYr7MqfwPWF/8N95WYatJ+MMYASeaXf56jaemy2noZ8nmOLjmPrYEy+gA3rKWmBvjhD7MAaQ3MYsX77ANeu/R0eK/9WjRM9xpYxGaUatLJh8AQee/V4lvW8l/t3nkX3q9PZWDkBnxmLyXpMUEXV49UcgFsj+9mZr/0goC5gWnEzK7dN5NXBqYhJagaXHLxSVU1oCItYWaCK8K32AECUVLfWOPBJcvYUIu9HrW8CAxpRCVv4fOOfsXwgQ4Or4FUpRUJCjim2zLvtJuaYlzlOttJIiUy8A8UQh2PZ5QpsiFp5YuAYfrm7lVf7EzJaIoOnvwrFfJH/N+fHzArW8cuBU7lv1wk8sb2JF7YbypUEVQPOo4mjLhRmNsecNmE3F056mnlNz4PvwyfhPiTQfZhAhwz815iB8qsYewdZw4fv+iTvm/EcHz7pB/hKPQaHqqA191qEAzFwPBljqLiVsmD1vKExDjLUIqx3tLVhzWPEmkmpPHqxWoPy9XGfZnFlKmOSAeIE+n2WE8IqV8sTvCd5lEa3GTRKiahSM4Zrndai6cfk2MIM7u5tZ9GmY9nWn9AYRvTFAcc3Ki2mzAOb64mimIyPyYhHvKZupfP4xBMnnmoVYhdQCC1nTq3wybmrOWPsKvDV9Pky9Hyb/isW3L4DFRTvFdVa676mX8e2EVMX8pUHfpvlLzfyn/N/SL66FRtmQCLwlXRD+ADUHJixHkqE8++SK1ev1kWdNqBlW7p1Yi6naHJUk1GLvKR6r8Qvmy7hLo5njPYQYdCwwO/bdXww+hF11ZdAA7yEQFhTVbrfzlZqRnTimSjr+Hjj01xUN5u/33ohP9tUpGBKPLfLsC7KUpBBChnSTZAI6j1OUyIHBsQaMlkFnxDHFZauszy+8QzOnTqDiYVeYjL0JU3EZHGEeEIizVIqxcRRQuIF7xWXeOLY4zXFJE6g7LKoyRFFCVG1ysXfvZrGTIWmhhythV6m12+ldeJYTmnewAz7MKrhm3OiV0/O5ujxlwOradkmAfctG4q8zKeqIKMTedGag17NTOD7+fOQ8iCxWLLZLJ+N7+a9gz8FL3gpIKKYN4li7FmkgJLDJ3CMWcffTHmZW3OX888bppGVXnJZIYmhFKUc5hNDxqS1BOqUcjXBJwmhj8kZxRihMaf4eJA7niwwfcok/vr8leTZiKOJJKkSJQ4XJ8SJx3uoxkrZh3gNUckSmzpizZM4h0FTcWkzfO+xSZwwrp/zp6+nJehlXL2jyC7qijma2Alq31qMikiKEfOBL3PfMp+K9SVtp5G1D1F1YRo+GC3uG2TZmMv4cu5SMuUebFDHwmgx7f0/x5liTb3rId8fjTGZgO/uuJq/WzcVH1cIbY7j6mJOKu5kerGHFrZSsI5KAjtdKy/21rFu1xjWvxqys6dC0VbJWMEIlGPhvbPgn377B4jbAmT2SoOhcSSvt91F91oyHigaPvvjj1EwA3zxov+AwbCmI2tWsNoDd7lFHVkbU3Vny9Wrn6iFZXQqgeSo4EYz1oIt8lDxNLRaIcnU85n457T3/5zE1BEMM4Ji8KiE+Cjho82L2T3zgzzbk+OaKcs5rf5FcroNJE7jqkOENxY0wGkDTw9M4a4NM/nh061s3RVRl4nIWbh7Zchnw0v427OX4KsRRsyvSAZ9kyydV8FomatmruCbT7yHZKAJiSNEZI8nc1CbVoFAclR1KlADUOWaN3yXEROfEX3Zabwo40hMyBWynvP7fogzRYIReqzgEbGoc/zZhMXQasD3QBTiCVCG9OoQyVL/2LKbkwvbObl9DR8+aTr/uuZ0/n15E9aXGF+MuH1FHeceexaXHvszXDWDfUtfce/PrQDOcvrEF2luPp/NAxM4tvg86jOHKm10H8zuMDUf34x6dlJjNoUT2UKB44IK1/TdiepQGFpH+GkWTSI0ruBcEZUQI2BFsaIY8Vjxta8BCfAujytbJtln+fwZS/japc9SzBcpx5acqfDPy09gMJmIkfigsyBeAzJmJ6c2P8fzA5PBOoYd51KMKmJYMm8mIu+j5NKVjGKAd5eGDIQFrkhWMKa8HjW5Q9Z5bwmiCCKCFX8Az6iBahTVHK6sXDz5J3zr8kcZN6YBRHhqi/DjjScjoX/LcWyvkxQCJ3S0rmZL1ApehpGkk4CSA5H3sWTeTIP3CVAYzYkmqT637MhMomAS3l16AsUiesQN/0PwWANJpci8pkf5uwseJp+th6jMz56fiqcR9XpQQktIfb2pda8ys3ELuMzwNm76pwW8TwzGn4gVj44ehIrBq8f5hGl+B+MrL4LJHCGpn9e/AuNJKnnOaH2MPz3nRbwLeWpzjr5kPEF+ACHCew5CnBpCKpzR8Ojwo5SKYsVj/In2hs4Jf0XBziP2fuSrrdNov/UVRCOeqTuFZptwas/9qMkc8fl0MYLGMKdlCyt2zWL1JmVLdQLZbDNNRUM+14f4GKfBAQep37RG8GBK8QvWEqkLQMqjwXsqBvExRh2v1Lfx0+bz+Wl2Hn+y/d9rgweFI3B+6q+IPiUglF38wRkv8MTLbdy7Rrl3zakcO+5ULjphCx9tW05L7kV8JcSYt16TjKxeKgf7jHEcOaddDMaVSYImlkz+EHfmz2B3pUwQJxTlyAdufwNE0TjgrJY1zJowiw1blKwdZPOrwj9sGseP1lzCX5z3LJdNW4pWXG2GkR62phgDdKbDTUdGfKoYTFJiZ2EWNx7/Bb5TfDeD1QEafJnMnhAZv0b1fYr3AdlgB6dO2s32/jyxg3xWGFdM2LGzzGe7ZvGVx66EXJqJG/1iKzG1gbSdhsCMq9nFMiJi05XY1ngKN5zwlzwmTTTGfWSNUBXLLilQJvNrxYEAxgCRcs2ctXzg3VXqC3l2D4aUq0o+I9TZEt/4SQs3PXgRJp9DvR/tEkjBKwRmnL1h/oSFI9GkqQj4iIHsFL50/Gd5hpAGVyX2UDZ5JhJxSbmbs/vuJ19L08ivDRemBWJN4atcfPxTvO/4LTQ11fPcrrFs73HkQqUQJvzyuSbGNjdxSuszeGdHvyDTo6KL5+qI6VTgm7Ou457CbBqrvfRpSI6Q+b0Pc8mOu2iobgICVML9eFD2CJ3Dz5k6pLF0f908RPx99ZkiqFeMjSFreGVwJl996Ex+2F1PMaigHpzkue1jD3Jy4wp8kh2xEo1RndTka6Lz8daL+PmYNhriPvqDPMfZhJu23MqHNv0zDdWtxKaQ9hVrBaMljJYxWkaIQB2uVtB7OEBzKrVaoRhjqpigjAmq6cdWEYkRTfAevKZFxIJiDKhmcKWAycHT/N1FS/i/F2+knOQxKJVSzD8+1IbaAhwGPzcYkUZvTahmWuhqvQiq/ZSDHLOiHj7/3NcYW9pAHDQQujKhr1IJmtgWTGSnHUecJNSLZ3z0Ek12AKt94BMgW9tbOuIpLdRjJMKGgNQxEOXYXm3l1XKRaqUMQEMxx8TMVsZl+wnCErgyJMEef09QrAHv8zBY4eOn3k0xOJ+FP5hNXXaQpU+N4fHT23jXhEfwcX5UyxyD4XOfYJIKqydczHPZFqQywCQTcf0L32Bs6XmSoJ7QDbClOIe7Gy7kcT+JLdUssbc4F6OVhEJSYWo4yEmZHfyWWcMcXUuo5drr6ciISVWMKUOYYVt0HPdta+OxHZN46tUsOwYMUSLEUYKoEhhD3sRMbYyZO77Muye8wJnj15MPtkNkcBpghRQYsbiS4YNzl9JTqeNrP5uEq1b54bqZvGvyynR4+yjqQtGuuX44RowKiPd8s+0L/Dg3gybghuf+gZk7HiAJ6gl8xM9b5/Pt/HlsKSvZShkbx0iUIJEnjmIGYstAnCUXZJhsS5xT2MUHMvczOepGZThxw9RYM1KFIGRDcjJdW07l3hfHsqVXMHGFDJ5AE8R5vCrqQb3inFAte5LEEpgMs1oS5s99haumP0F9sBmthmBMzdkXvE+whXr+4I4F/PwxZc70hMUfvps8O9O47yhV7wcEImmRyCFWVbsqffmprM1NwZmAK3bcz8ztD5KE9QRJibuO+wTfLJyL7dvBGPU4UdQYrDGUxKC5IqfX9XKOrKbNr2Oybsa7mHyiIMGwMvRGE4yN2aQn8t1NZ3P3pgnsHkgoaonG0FP1kFQh8hbvA9QpuISMKKE4whzgElwS8+xWww2bp3Jb6zF86sznuXTqgxCVUc0g4hEJId7Nn5/1KI+tO5uXtmV4ZvdE5o17FU1CZDTEaCASkPgdWDPuUHoAU+6L2Vh/PFuCeqbFu7l40534IEvgBlkx/iL+ua6DcGAX1loSBaxHYk8vOU4uDvBR/R/eFXcjyS7wHiTcJ8pmD4nrnIKVMj4zlq7eDm59/kS29iTU0U9ehEEtkLGG1qaICXnIun4CV8X5kMjUs2mn4+UdSlypkrcxGWspZgx1vsrzW+DTXcfzP6e28sX3/oR68yrepeX8Ps4wZ8IGLjjlVP77/jG8sLuZea2CxjrSYjSdOJr4HQHQRc58ilLiD7aRRWuU3pIZS48t8MHt91FXfgVvM1Qz4/m3lstxUZlcYHFJ+tteHdVMHdeYVXyksoRstA0IcZLbrz7yUDgv1XUeayNeZB63vHQ+D28tkk36yFph0NUxtclz/rhX+O3mZzg2t40xmQTLIGgMEqAU2VHNsr5nHPe+OJNfPNfC1p0R9WGMV0M+hLwdZMnjebb3/g7/8L/uodFsx/ssiKJugMtOWs9tD5/Jbp0EZjQCF+rJWcug7wqGE0KT2ik4O0yORnGcuf0hEINxEcsmX8gzQROFqIcESWOK6onDRj5dXcZl/f8FCl4KGBQ7TJM7FZkREob8qHwpX998Jjt7BykySB91zBiTcM3kVVzctJoGsxlcDN6ildR1Sf2+CKGfFlFaxj3PWa2r+MS86dy6op3Fy5sItYw1gteAlmLMg89k+Iy9lL+/9Efk/E6QEEks7a0bOXbcGQyWfK0QWEYtpBaA5od7/8hmmVrdzjEDz4MYNCjyQONpqYIxFnzaWlIOC3wwWsFlPf+NU4sRixkBXykFr0QlM5Gv9V/N4k0TycS9WBNgggb+ZNozfGjcgzT4lyE2xBpixGCNSyW2OvBDk6HTIIMmArFnil3Hl856gTNa38sX7plJnESExuISYWwh4d6VGf5x4rl89sw78SWPYmmo28XMiSVizYxef1daT5g3iN5GZRi5QHUEOI4d2IqJewHPzuxEnrdjyWiMmrREryqW6WGVD/XckdbCiB12Qldr+s4wyPPBPP5k9ydYtKWVIr0MkOfEscK3Tr6XTzbfRkO0CbyBHIRFj81n2e1a2dgznq2lSTjC/WIzRnzqtPscruS5bNpP+PqVT2GzjTgHYgzOBTTnYv7zl+PZsOsETBDhsKARE8dUqWMb+HgUOFAMFe8RvS3Am3Wg5tDScwLqGacVvN+d3sB7ttZNpRLmMFE1Ta+oJwryvGfgIfKVLXhbwKgbEZFprfAzeylf2XYOfQNVipSp2DF8sPUV/qTxh9QlL0IQQr7Apv7JrNg0jQc3NPP0K/Xk6grMOaaHOZNjOvLdNOt6IHxNSM1jRUhKec6d8gCf6WjmS3cfS31YSiv8QsOu3pj/XHMKC9+7AWKFJGZS4yDTm/shSRDJjawelFooyZt1AcYE4EvIwdfFDOnAaYMbsWFhqMiRCg6/T9udV8iHllnxRlT9sBajNb61foBKZjK3cjVLdk6DSg8JGSbU1/PHYx/iAntv2o0VTOShHSdz9zPTWfbsGDZsMRzbnPB7p71I54mrOKZ+B0IFnHmTwIFireBLygeO/yVdkyezfpOhEDi8F3I24dENdZR+q4mC3QbO0FSMmTV2K/ggndsz0uJTKWFMEHD1kxtY3PZTCsEVDCTJwVSmiSqYkNb+F9jNODAh+FprxT6Vy1qrjwxEDzkPr7WQt/FVrFGerj+Lb0S/Q/euHEEyiM2P4ZL6LXwyczcT9EkIWrlv29l8a/ksnniljp7dMWPrLZ+5aBOfOOURWgovQ1UhCfDYtww6C4rXkGywnXNn7GLtxmbqMgnOQ2CEnf0hu/14CmYL3mWYNr7KuNyuFMCRLZtMKAQB/clPmf/khnSoweJDVUYpgA3xTub2PIJKiBBR8D7t3pGhTn0oOWU3xYNaiiKopA2ZxkeIOAYKx3FH7gJui+eyeSCimDW01Ze4JryXs/yDYAZ4vvxuvtZ9Jj97to6kv584qXDOLPj8e+7n1HEroRrjBjMYwz59GAcqcxJaw5cQ01Kr7fRIAFHiGBhMoFHAG85pfgTrSwfWdXSIQSaRtGkbRP8DuOpQta2oo5BsQyUAsYwf2EhdUqVXDNan59a6JGZ5fg7nmx8fcPe2aBVxEUhIX24yP6n/be7MnMWGcoaxDHBx8y4u8it4d9RNJn4Zb1v5zsbL+M6q49jVO0jg+giyRT525qt85tT7yPpNuFIOYzJYo4c4q98SSX2qCoT0DC9xqCpJ4vaKXDcwWhM5ZR/MhoLZspFEKwjhoYcdU1GhJqS5upkT3XaWmQkUXRWHoeAqPGyP4+n6dmb3PoSzddi3aMXYWDiF9cXZPF+YwYrgOLbFwrEDL3CF2cw81nFCeQ0kfWCVV5jHzSsv4N5nstRJLxAypr7IF89ZwQWtD0M1wWsBaw5dBwuKaJa1O1oRXC0prXhVgsCSz+dq/eqM3rEZAiRaAdkIEOhCjFy9+gntanuGnD2Fqj/E6RRDJfsWkwxywfYHeGji70G1nC5UhEpc5etjFnBLdTON1Rdwpq7mwL8+QY06xkqJxoGVvLfyU1qTbYxJtoGrDB1gDNk8D5bew5efPI0Xt1Zpzg6yfbDAOdMSvnj6vRyXWYMr5zAmHFZax6nFBoO80H8qy9aPoRgO1MrBBO+E+rzSnOuvJYZH7XJkrKXs1kjn6id0ISY9Jz2l/2KywnCnUxhV1OY4Y8dSzqq+xKDNYdShCDkcz0YBX2z43+zOn4DV/rQn/Q2mLh1TXs2pW5dwxo47mT3wOGOqm0ic4gkgVHYHx/A3L32QP37kXWzrLZOzjgHTxCfftYN/Ofu/Oc6uxcUFrGFYhoRXg6GEy4znlgfPZHdfhTAwqKZpnGocMntSRGNmW1pKMXoHMmqKEYsBOLfDGLaPT1cW8gMqvlLrnxpmcYVFXIk/ePnfaDVKWQ1WPR6h4GNW+Cb+PP8pHij8DhLkMFpCNEJV92TlPQYnBRI7hsQ04CXtzQtsFZdp4UcDl/CRJzr513XjyMQ9lOKApsZGvnbOcv5y9m0E0S68z2OHwXWKkHjB2DLkW1h434X84qkcDfm0uTNVRR5MyMUz1iMMoNjRKw0xYqj4CiE/AGD7eB21IQeKQfwg65ov4MstH2ZbuUwhqZI4QeKEctWjmqPdbOcSXU6be5Zmvx38QFqqqnteGsTiTTOvuAnc3zuDu3bOZu3OkLDSh489JVfPBVP6+KvZv2CiXYePsoiRg+S69Le11psp6tPal4ywpTyDLz5wHveuydCYidDE1OpRlIEBz9zpAf/Z2UXG9yCjNxvpdYccBAKq32oPVbsTbpcl5M0pRGmwaLhF9d4UOHHX//DXUS/faLmGFVpHIe5DgJwBXx3gMVfHo/59TLDncazbwUTtYYpupdE6Eu/ZWc6zKW5hU7WZZ3Zn2TWYECQl8lpmgBwTGyx/NX0VV49/EKIeXJw/BENFgASRBAmk1vxZz5byMdyzbjbfXTGTV16t0JSrkvg0MG9R4igmk2vkL859hKzZhXeZkXfa941Z5o0h9kuGxowI3fGoD/pJq7RLVDKT+I+mq7nTtjFQichWS4SJR50niRyVKlSTNEhsvAEnaK0fPYkcmSQi6yPUeXqjLMVMhqsmb+L3JzzIBHkWTcKaJewPxayjasbzSjSB7T1VXq5O4pFtx/L4xgKbdnryEpGzBpfUBmR4pVxSnBT58hUv0Hn8PfiKTetHR3MA7OsM+pFfOZVlUdti6oOrGEjcSE2nH4pbgvJs3encme3gIXcsvRWFaokwjjCJR5LahKZEcbGD2OOdxzmI4oCKC2kMlQvGbmFBy5PMDlZCEuM0V+ua1UOzyzVmIJjCD3dcwHceH8PqTQLxAHkTUW8VQ5qtTxJDFBvwAdPGxfzf923gwskP4CMwo1kEqppQF1j6k9tlwer5+57uctiG3Q3VXxpfBpPhpdwc7g/beTSewoZSkcFIqFQ8xAk+dqgTfKJYhYJ4pudKnNW4jQvrVjDNrAWX4H1mhCYUpiASeHrcZB7ZOYvHtk7ixZ1ZXuktUik7RAxj845pTSVOn7STi4/rZkz4Cj7KHlBTy7DdhzcYdnfYx02mdZ8eo1UQwZkmXjJTeJ7JvOha2FHJEmtIEFcYG8ZMDnuYZTYy1b5CID3gHF6zaeJ4ROsuJW39khRIgiwkOfqSBspVhzGG+mxMLtMPvgyR4DUc9cLdtxo3Gey7B3XtNpEblyXa1fZlLHfWCq5GuJLY1xz+fOpwuD6mudVMk5WpY57P1OwnByRpnYwKuABPCDJEND8KbdmghPhYIPIYGaRB+mjIDfGB4EsWlQxGOAzgDTVzAl6/LAu6nC7sCPY9LFJepwExNWgWty0na0+j6v3ozg2VPZPIhsz3fQvuU9UyNMRd36bx8a8zZOjwXI6sMVTdEzJ/9elD2LxFaX3nUGTmS2RqqYDD0J1g8Fh8bWenu9uK32c6tr5t7WX7fg7z9lEyIihf2g+bNwNQpMvpQgw6+y76kmXkbFDLwh69Di92npwN6EuWobPv0oUYkS534M0tnV2ebOYjRD6q2ch6lKqHUXIbESIfkc18hM4uf1DdSXIjnvs6rFzW/RKOb1O0gqo7StfDxn2OohUc35bLul/ivtoxSAfTc68gLET4rZkhpcJasmb66Bs0R6+9hot/nkLpZB7dEHMj+kbHlJs3c215CpH3b6iCfBRV4eiRjxyG4+dAVUA+Ku/fUOWpmndzKA2e0oXTRZ1W5q98iIr/Bjlra/O0j16jFTLLWUvFf0Pmr3xIF3W+6dmBB36G7vL2UE7vjrVr7s9oPHqK56iB1xgE9LqfS+eqC4doPjIt1u3dTnWhIdQ/puw3EhoZjfky7+hDkEMjKW31j1UXGtq73Yj1yIvgueE+I1esfoZB9wmK1gJuNOervaPOkgdH0VoG3SfkitXPcMN9Rg4wQn9Qkc49KafFc6+jPriZgeToWfLDBc+QUBeE9Cefk/mrbtk3VTTiUyrSfGGnlfmrbqE/uZ66IETUH+XDQywdEvU18K6X+atu0UWd9mDAO+SMu97aHsq13bEunvs56u1N9CcJKvYoJx4E54k66oOAfne9zF918xBNOcSjMYcD4nXU25sZcEfF6UGJTRvS71KxeYjgDa98+NruRG9tD2X+qlvodUPi9KhhcyCcVxeE9Lrrh8Dj2u5kuIfTMmxO7Gq7nobgr+l3SW1jHI3b8CunDnnqbUBf8nnpXH3TcDhvROeP7hWnc66jIXMzgw4Sf9TZ39dJD0xA0UJf9DmZv+aWkQBvZAfIpgkQr4vnvB9jbqUumEJvnCBi38FHmCuqjsYwYCDZhPfXyvw19wzRiiNl2N2Qs69LOwKZv+YeqpxPyf2Egg2GeiPfgdClQ0MLNqDkfkKV82X+mnt0aUcgIzjtfcQ5Qxd2BHJj6svo7ad8gwyfwktA1b1TuDHluqwNMJoQ8U9y1cpPv5Y2RyyA6YtiOLfDyHnLEr2j7T0Y8y0yZjYllx6hNkrH2x0RZRBGDAULkX8a7/9Qrlz9gC7tCLhvmX+jpOwRB+Cv6MWFJ2WYF3wVkY8RSJ6Kc2lr62+Ipap4RJWctSRaRvVfeDL5jNz4VDSS+u6wAzjEjUM7TxedOhPrvk0x6CD2UP01B3IIuKy1hAYGk2U4+3FZsGLDa9f+awvgnvKMpR1WzluWKAg/OuUKPJ8llLNw1IBEf010ZKrjBCFrLRaI9WEMX+HSlXcKqC7tCDhvmZPDUAh2WIn12h2pi+dejXAdeXs6Bhh0oBrXyvnlCAKz1jmjDpGQok3d8rJbjnKLzF+15I3W+BsF4N5Gmk5LZ5cfqjLWO+fNx+qVVP2VNIZ5yj6ddKuagJi3TcQqHtQjEpAxkDfQG5fJmjtwcodc8eTioWp2ujqNLOhyb89E/bdrW9dO0N7z/9vnnoDqh/ByFQEnUQwsVQ9Vr/tUAOg+HDrCXKZu733FkDVC1sBg4kh4CqO3I/J9uWrVs2+0hncUgPtxZMs2GcqF6UIM7W3zCM35VPhdoJ3cPtOfym5vb0uqj/YOgXvrNe3dDOmkC7snpJG3e5+RnozSTY7biP0v6F795B5jbGlHwPbx+nYCd0QB+Hr+437fX3LyGQThJGL3kfR4GL0IkSwihrzZaypU9j3b/Q0HBaT93UOrL/vUf1OtonIvop7Qfo8k3ixXr32c11QkjJY/9xsB4P69ihhaOuT1CKa3nzwDYwISnUEuuJyyS8c0oFcRmHEkQyMAXpPKCdIxxSC3gyp5K1SSHxDIc3ifyFVrn3u9DcX2ZcoCvByB7QX/H13ZqqRpcKdkAAAAAElFTkSuQmCC" width="36" height="36" alt=""><span>meteomind</span></a><p class="fbig">Ilmu atmosfer,<br>dekat dengan kehidupan.</p><p class="ftag">Bridging Meteorology &amp; Society in One Atmosphere</p></div>
+    <div class="fmeta"><span>Disusun oleh MeteoMind untuk Program Studi Meteorologi ITB.</span><span>Ikuti kami di Instagram dan TikTok <a href="https://www.instagram.com/meteomind.id/" target="_blank" rel="noopener">@meteomind.id</a></span><span>Data ITB Scholar dan profil staf itb.ac.id, diambil 31 Oktober 2026.</span></div>
+  </div>
+</footer>
 
 <div class="shade" id="shade"></div>
 <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+<div class="cbar" id="cbar" aria-hidden="true">
+  <div class="cin">
+    <div class="sbox" role="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+      <input type="search" id="q2" enterkeyhint="search" aria-label="Kata kunci pencarian" placeholder="Cari publikasi, bahasa Indonesia atau Inggris">
+      <button class="sbtn" id="go2" type="button">Cari</button>
+    </div>
+    <button class="fbtn" id="ftog" type="button" aria-expanded="false" aria-controls="cdrop"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span class="ft">Filter</span><b id="fcount" hidden>0</b><svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    <span class="ccount" id="ccount"></span>
+  </div>
+  <div class="cdrop" id="cdrop"><div id="cslot"></div><div class="cfoot"><button class="btn" type="button" id="fclose">Tutup</button><button class="sbtn" type="button" id="fsee">Lihat hasil</button></div></div>
+</div>
+<div class="pm" id="pm" hidden><div class="pm-shade" id="pmShade"></div><div class="pm-box" id="pmBox" role="dialog" aria-modal="true" aria-labelledby="pmH" tabindex="-1"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -243,7 +836,7 @@ const scholarPaper = r=>'https://scholar.itb.ac.id/paper/'+r.sl;
 (function(){
   const core = R.filter(r=>!r.dup&&['Artikel jurnal','Prosiding','Buku / bab buku'].includes(r.k));
   const yrs = core.map(r=>r.y);
-  const k = [[R.length,'total entri publikasi'],[DATA.p.length,'dosen tercakup'],[core.filter(r=>r.q==='Q1').length,'artikel di jurnal Q1'],[Math.min(...yrs)+' sampai '+Math.max(...yrs),'rentang tahun']];
+  const k = [[R.length,'total entri publikasi'],[DATA.p.length,'dosen tercakup'],[core.filter(r=>r.q==='Q1').length,'artikel di jurnal Q1'],[Math.min(...yrs)+'–'+Math.max(...yrs),'rentang tahun']];
   const kid=['all','dosen','q1','tahun'];
   $('kpis').innerHTML = k.map(([b,s],i)=>`<button type="button" class="kpi" data-k="${kid[i]}" title="Klik untuk melihat rincian"><i>Rincian ›</i><b${String(b).length>8?' class="kvl"':''}>${b}</b><span>${s}</span></button>`).join('');
 })();
@@ -251,7 +844,7 @@ const scholarPaper = r=>'https://scholar.itb.ac.id/paper/'+r.sl;
 const sorted = [...DATA.p].sort((a,b)=>pubsOf(b.id).length-pubsOf(a.id).length);
 $('cards').innerHTML = sorted.map(p=>`<div class="card" data-id="${p.id}"><div class="av">${ini(p.n)}</div><div>
   <div class="nm">${esc(nm(p))}</div><div class="jb">${esc(JAB(p.j))}</div>
-  <div class="st"><div><b>${pubsOf(p.id).length}</b>publikasi</div><div><b>${p.h}</b>h-index</div><div><b>${p.cit}</b>sitasi</div></div></div></div>`).join('');
+  <div class="st"><div><b>${pubsOf(p.id).length}</b>publikasi</div><div><b>${p.h}</b>h-index</div><div><b>${p.cit}</b>sitasi</div></div><span class="go" aria-hidden="true">Lihat profil</span></div></div>`).join('');
 $('dosen').innerHTML += sorted.map(p=>`<option value="${p.id}">${esc(nm(p))}</option>`).join('');
 document.querySelectorAll('.card').forEach(c=>c.onclick=()=>openProfile(c.dataset.id));
 
@@ -262,22 +855,108 @@ $('kchips').innerHTML = KATS.map(k=>`<button class="chip" data-k="${k}">${k}</bu
 document.querySelectorAll('#kchips .chip').forEach(b=>b.onclick=()=>{const k=b.dataset.k; st.kats.has(k)?st.kats.delete(k):st.kats.add(k); b.classList.toggle('on'); render();});
 $('tchips').innerHTML = Object.entries(THEMES).map(([k,v])=>`<button class="chip th" data-t="${k}">${v}</button>`).join(' ');
 document.querySelectorAll('#tchips .chip').forEach(b=>b.onclick=()=>{const k=b.dataset.t; st.ths.has(k)?st.ths.delete(k):st.ths.add(k); b.classList.toggle('on'); render();});
-$('q').oninput=e=>{st.q=e.target.value.toLowerCase().trim();render()};
+
+/* ===== Pencarian dwibahasa (Indonesia <-> Inggris) ===== */
+const GLOS = [["hujan", "rain", "rainfall", "precipitation", "presipitasi", "rainy"], ["curah hujan", "rainfall", "precipitation", "hujan", "rain", "presipitasi", "rainy"], ["hujan lebat", "heavy rain", "heavy rainfall", "intense rainfall", "hujan deras", "hujan ekstrem", "extreme rainfall", "extreme precipitation"], ["hujan es", "hail", "hailstorm"], ["musim hujan", "rainy season", "wet season"], ["musim kemarau", "dry season", "kemarau"], ["musim", "season", "seasonal", "musiman"], ["monsun", "monsoon", "muson"], ["banjir", "flood", "flooding", "inundation", "genangan", "banjir bandang", "flash flood"], ["banjir rob", "rob", "coastal flood", "tidal flood"], ["kekeringan", "drought", "dry spell", "kering"], ["longsor", "tanah longsor", "landslide"], ["bencana", "disaster", "hazard", "bahaya", "kebencanaan"], ["risiko", "risk"], ["mitigasi", "mitigation"], ["adaptasi", "adaptation"], ["peringatan dini", "early warning", "sistem peringatan", "warning system"], ["cuaca", "weather"], ["cuaca ekstrem", "extreme weather", "severe weather", "ekstrem", "extreme"], ["iklim", "climate", "climatic", "klimatologi", "climatology"], ["perubahan iklim", "climate change", "global warming", "pemanasan global"], ["variabilitas iklim", "climate variability", "variabilitas", "variability"], ["proyeksi", "projection", "projected", "proyeksi iklim", "climate projection", "scenario", "skenario"], ["pemanasan", "warming"], ["siklon", "cyclone", "siklon tropis", "tropical cyclone", "topan", "typhoon", "badai tropis", "hurricane"], ["badai", "storm", "thunderstorm", "badai guntur"], ["puting beliung", "tornado", "waterspout", "angin puting beliung"], ["angin", "wind", "winds"], ["angin kencang", "strong wind", "gust", "high wind"], ["angin darat", "land breeze"], ["angin laut", "sea breeze", "sea-breeze"], ["angin lembah", "valley wind", "mountain wind", "angin gunung"], ["seruak dingin", "cold surge", "seruakan dingin", "surge"], ["gelombang", "wave", "waves"], ["gelombang panas", "heat wave", "heatwave"], ["gelombang tinggi", "high wave", "storm surge"], ["suhu", "temperature", "temperatur"], ["suhu permukaan laut", "sea surface temperature", "sst"], ["panas", "heat", "thermal", "hot"], ["dingin", "cold", "cool"], ["kelembapan", "humidity", "moisture", "lembap", "kelembaban"], ["uap air", "water vapor", "water vapour", "vapor"], ["awan", "cloud", "clouds", "berawan"], ["konveksi", "convection", "convective", "konvektif"], ["sistem konvektif skala meso", "mesoscale convective system", "mcs", "skala meso", "mesoscale"], ["awan cumulonimbus", "cumulonimbus", "cb"], ["petir", "lightning", "kilat"], ["radiasi", "radiation", "radiasi matahari", "solar radiation", "insolation"], ["matahari", "solar", "sun", "surya"], ["energi surya", "solar energy", "solar power", "plts", "pembangkit listrik tenaga surya", "photovoltaic", "pv"], ["energi", "energy"], ["listrik", "electricity", "electric", "power"], ["angin energi", "wind energy", "wind power", "turbin angin", "wind turbine"], ["atmosfer", "atmosphere", "atmospheric", "atmosferik"], ["dinamika atmosfer", "atmospheric dynamics", "dinamika", "dynamics", "dynamic"], ["sinoptik", "synoptic"], ["sirkulasi", "circulation"], ["tekanan", "pressure"], ["tekanan udara", "air pressure", "surface pressure"], ["lapisan batas", "boundary layer", "pbl", "lapisan batas planeter"], ["lapisan", "layer"], ["turbulensi", "turbulence", "turbulent"], ["stratosfer", "stratosphere", "stratospheric"], ["troposfer", "troposphere", "tropospheric"], ["ionosfer", "ionosphere"], ["okultasi radio", "radio occultation", "gnss ro"], ["gelombang atmosfer", "atmospheric wave", "gelombang ekuator", "equatorial wave", "kelvin wave", "gelombang kelvin", "rossby"], ["osilasi madden julian", "madden julian oscillation", "madden-julian", "mjo"], ["el nino", "el nino southern oscillation", "enso", "la nina", "el nino-southern oscillation"], ["dipole mode samudra hindia", "indian ocean dipole", "iod", "dipole"], ["osilasi kuasi dua tahunan", "quasi biennial oscillation", "qbo"], ["osilasi", "oscillation"], ["anomali", "anomaly", "anomalies"], ["tren", "trend", "trends", "kecenderungan"], ["diurnal", "siklus diurnal", "diurnal cycle", "harian", "daily"], ["bulanan", "monthly"], ["tahunan", "annual", "yearly"], ["dekade", "decadal", "decade"], ["jangka panjang", "long-term", "long term"], ["musim dingin boreal", "boreal winter"], ["ekuator", "equator", "equatorial", "khatulistiwa"], ["tropis", "tropical", "tropics"], ["benua maritim", "maritime continent", "maritim", "maritime"], ["laut", "sea", "ocean", "marine", "samudra", "lautan", "kelautan", "oceanic"], ["oseanografi", "oceanography", "oceanographic"], ["interaksi laut atmosfer", "air-sea interaction", "ocean-atmosphere interaction", "air sea"], ["arus", "current", "currents"], ["arus lintas indonesia", "indonesian throughflow", "itf", "arlindo"], ["pasang surut", "tide", "tidal"], ["muka laut", "sea level", "kenaikan muka laut", "sea level rise", "tinggi muka laut"], ["pesisir", "coast", "coastal", "pantai", "shore"], ["pulau", "island", "islands"], ["selat", "strait"], ["teluk", "bay", "gulf"], ["samudra hindia", "indian ocean", "hindia"], ["samudra pasifik", "pacific ocean", "pasifik", "pacific"], ["fluks", "flux", "fluxes"], ["fluks panas", "heat flux", "surface heat flux"], ["karbon", "carbon", "co2", "karbon dioksida", "carbon dioxide"], ["emisi", "emission", "emissions"], ["gas rumah kaca", "greenhouse gas", "ghg"], ["kualitas udara", "air quality", "polusi udara", "air pollution", "pencemaran udara"], ["polusi", "pollution", "pencemaran", "polutan", "pollutant"], ["aerosol", "partikulat", "particulate", "pm2.5", "pm10"], ["kebakaran", "fire", "wildfire", "kebakaran hutan", "forest fire", "karhutla"], ["asap", "smoke", "haze", "kabut asap"], ["kabut", "fog", "mist"], ["perkotaan", "urban", "city", "cities", "kota", "urbanisasi", "urbanization"], ["pulau panas perkotaan", "urban heat island", "uhi"], ["kenyamanan termal", "thermal comfort"], ["air", "water", "perairan", "waters"], ["air tanah", "groundwater", "ground water", "akuifer", "aquifer"], ["imbuhan", "recharge", "imbuhan air tanah", "groundwater recharge"], ["sungai", "river", "rivers", "kali"], ["das", "daerah aliran sungai", "watershed", "catchment", "basin", "cekungan", "sub-das", "sub-watershed"], ["debit", "discharge", "streamflow", "river discharge", "debit sungai"], ["limpasan", "runoff", "run-off", "aliran permukaan"], ["hidrologi", "hydrology", "hydrological", "hidrologis"], ["hidrometeorologi", "hydrometeorology", "hydrometeorological"], ["sumber daya air", "water resources", "water resource"], ["bendungan", "dam", "waduk", "reservoir"], ["jebol bendungan", "dam break", "dam-break"], ["evapotranspirasi", "evapotranspiration", "penguapan", "evaporation"], ["tanah", "soil", "land", "lahan"], ["tutupan lahan", "land cover", "land use", "tata guna lahan", "penggunaan lahan", "land-use"], ["vegetasi", "vegetation", "hutan", "forest", "forests", "kehutanan"], ["pertanian", "agriculture", "agricultural", "agro", "tani"], ["padi", "rice", "paddy", "sawah"], ["tanaman", "crop", "crops", "tanam", "planting"], ["produktivitas", "productivity", "produksi", "production", "hasil panen", "yield"], ["petani", "farmer", "farmers"], ["ketahanan pangan", "food security", "pangan", "food"], ["perikanan", "fisheries", "fishery", "ikan", "fish"], ["terumbu karang", "coral reef", "coral", "karang"], ["ekologi", "ecology", "ecological", "ekologis", "ekosistem", "ecosystem"], ["daya dukung", "carrying capacity"], ["lingkungan", "environment", "environmental"], ["kesehatan", "health", "penyakit", "disease", "demam berdarah", "dengue"], ["transportasi", "transportation", "transport", "transpor"], ["penerbangan", "aviation", "flight", "pesawat", "aircraft"], ["bandara", "airport", "bandar udara"], ["pelayaran", "shipping", "maritime transport", "kapal", "ship"], ["prediksi", "prediction", "predicting", "predict", "prakiraan", "forecast", "forecasting", "ramalan"], ["prakiraan cuaca", "weather forecast", "weather prediction", "numerical weather prediction", "nwp"], ["model", "modelling", "modeling", "pemodelan", "model numerik", "numerical model"], ["simulasi", "simulation", "simulations", "simulating", "menyimulasikan"], ["model iklim", "climate model", "gcm", "gcms", "cmip", "cmip6", "cordex"], ["downscaling", "downscaling statistik", "statistical downscaling", "penurunan skala"], ["asimilasi data", "data assimilation", "asimilasi", "assimilation", "3dvar", "4dvar"], ["wrf", "weather research and forecasting"], ["mpas", "model for prediction across scales"], ["ansambel", "ensemble"], ["verifikasi", "verification", "validasi", "validation", "evaluasi", "evaluation"], ["akurasi", "accuracy", "galat", "error", "bias"], ["pembelajaran mesin", "machine learning", "ml", "kecerdasan buatan", "artificial intelligence", "ai"], ["pembelajaran mendalam", "deep learning", "jaringan saraf", "neural network", "lstm", "cnn"], ["statistik", "statistics", "statistical", "statistika"], ["regresi", "regression"], ["korelasi", "correlation"], ["analisis", "analysis", "analisa"], ["indeks", "index", "indices"], ["indeks presipitasi standar", "standardized precipitation index", "spi"], ["reanalisis", "reanalysis", "era5", "era-interim", "merra"], ["satelit", "satellite", "citra satelit", "satellite imagery", "himawari", "modis", "gpm", "trmm"], ["penginderaan jauh", "remote sensing", "inderaja"], ["radar", "radar cuaca", "weather radar"], ["pengamatan", "observation", "observasi", "observational", "observed", "mengamati"], ["stasiun", "station", "stasiun cuaca", "weather station", "aws", "automatic weather station"], ["pengukuran", "measurement", "measurements", "measuring"], ["sensor", "instrumen", "instrument", "alat ukur"], ["murah", "low-cost", "low cost", "biaya rendah"], ["isotop", "isotope", "isotopes", "isotop stabil", "stable isotopes"], ["spasial", "spatial", "spatiotemporal", "spatio-temporal", "ruang"], ["temporal", "waktu", "time"], ["resolusi tinggi", "high resolution", "high-resolution", "resolusi"], ["peta", "map", "mapping", "pemetaan", "memetakan"], ["sistem informasi", "information system", "sig", "gis", "sistem informasi geografis"], ["pustaka python", "python library", "python package", "library", "pustaka", "paket python", "perangkat lunak", "software"], ["kode", "code", "script", "scripts", "skrip"], ["dataset", "data set", "kumpulan data", "datasets"], ["ideal", "idealized", "idealisasi"], ["kuantum", "quantum"], ["persamaan", "equation", "equations"], ["solusi analitis", "analytical solution", "exactly solvable", "analitis", "analytical"], ["spektral", "spectral", "pseudo-spectral"], ["fraksional", "fractional", "fractional-order"], ["entropi", "entropy", "information-theoretic", "teori informasi"], ["kausal", "causal", "causality", "atribusi", "attribution", "kausalitas"], ["lapisan ekman", "ekman layer", "ekman"], ["momentum sudut", "angular momentum"], ["sirkulasi meridional atlantik", "atlantic meridional overturning circulation", "amoc", "overturning"], ["histeresis", "hysteresis"], ["soliton", "korteweg", "kdv"], ["penyelam", "diver", "scuba", "selam"], ["gua", "cave", "cave diving"], ["sonifikasi", "sonification", "suara", "sound", "audio"], ["gamelan", "musik", "music"], ["pendidikan", "education", "educational", "pembelajaran", "teaching", "edukasi"], ["masyarakat", "community", "society", "public", "publik"], ["kebijakan", "policy", "regulasi", "regulation"], ["ekonomi", "economy", "economic", "ekonomis"], ["industri", "industry", "industrial", "kawasan industri", "industrial park"], ["nikel", "nickel", "smelter", "pertambangan", "mining", "tambang"], ["kejernihan air", "water clarity", "turbidity", "kekeruhan"], ["reklamasi", "reclamation"], ["pengembangan", "development", "developing"], ["kapasitas", "capacity"], ["dampak", "impact", "impacts", "pengaruh", "influence", "effect", "effects"], ["faktor", "factor", "factors"], ["mekanisme", "mechanism", "mechanisms", "proses", "process"], ["karakteristik", "characteristics", "characteristic", "ciri", "sifat"], ["identifikasi", "identification", "deteksi", "detection", "identify"], ["estimasi", "estimation", "estimate", "perkiraan"], ["penilaian", "assessment", "assessing", "kajian"], ["perbandingan", "comparison", "comparative", "membandingkan"], ["kemungkinan maksimum", "probable maximum", "pmp", "probable maximum precipitation"], ["periode ulang", "return period"], ["frekuensi", "frequency", "kejadian", "event", "events", "occurrence"], ["intensitas", "intensity"], ["durasi", "duration", "lama"], ["puncak", "peak", "maksimum", "maximum"], ["topografi", "topography", "orografi", "orographic", "pegunungan", "mountain", "gunung", "relief"], ["lembah", "valley"], ["dataran tinggi", "highland", "plateau"], ["gunung api", "volcano", "volcanic", "vulkanik"], ["gempa", "earthquake", "seismik", "seismic"], ["tsunami"], ["jawa", "java", "javanese"], ["jawa barat", "west java", "western java"], ["jawa tengah", "central java"], ["jawa timur", "east java"], ["sumatera", "sumatra"], ["kalimantan", "borneo", "kalimantan timur", "east kalimantan"], ["sulawesi", "celebes", "sulawesi selatan", "south sulawesi"], ["papua", "new guinea"], ["bali"], ["nusa tenggara", "lesser sunda"], ["indonesia", "indonesian", "nusantara"], ["asia tenggara", "southeast asia", "south east asia"], ["asia timur", "east asia", "east asian"], ["cina", "china", "tiongkok", "chinese"], ["australia", "australian"], ["jakarta", "jabodetabek", "dki"], ["bandung", "cekungan bandung", "bandung basin"], ["citarum", "citarum hulu", "upper citarum"], ["pertahanan", "defense", "militer", "military"], ["udara", "air"], ["laut", "seas"]];
+const qn = x => (x||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9.]+/g,' ').replace(/\s+/g,' ').trim();
+const SYN = new Map();
+GLOS.forEach(g=>{ const gg=g.map(qn); gg.forEach(t=>{ if(!SYN.has(t)) SYN.set(t,new Set()); gg.forEach(x=>SYN.get(t).add(x)); }); });
+const MAXW = Math.max(...[...SYN.keys()].map(k=>k.split(' ').length));
+function stemKey(w){
+  if(SYN.has(w)) return w;
+  const cands=new Set([w]);
+  for(const suf of ['nya','kan','an','i','s','es']) if(w.length>suf.length+3 && w.endsWith(suf)) cands.add(w.slice(0,-suf.length));
+  for(const c of [...cands]) for(const pre of ['meng','meny','mem','men','me','peng','peny','pem','pen','pe','ber','ter','di','ke','se'])
+    if(c.startsWith(pre) && c.length>pre.length+3){ const r=c.slice(pre.length); cands.add(r); if(pre==='meny'||pre==='peny') cands.add('s'+r); if(pre==='mem'||pre==='pem') cands.add('p'+r); if(pre==='men'||pre==='pen') cands.add('t'+r); if(pre==='meng'||pre==='peng') cands.add('k'+r); }
+  for(const c of cands) if(SYN.has(c)) return c;
+  return null;
+}
+function parseQuery(raw){
+  const w=qn(raw).split(' ').filter(Boolean), units=[];
+  for(let i=0;i<w.length;){
+    let hit=null;
+    for(let n=Math.min(MAXW,w.length-i);n>=2;n--){ const p=w.slice(i,i+n).join(' '); if(SYN.has(p)){hit=[p,n];break;} }
+    if(hit){ units.push({q:hit[0],alts:[...SYN.get(hit[0])]}); i+=hit[1]; continue; }
+    const k=stemKey(w[i]);
+    const alts=new Set([w[i]]); if(k) SYN.get(k).forEach(a=>alts.add(a));
+    units.push({q:w[i],alts:[...alts]}); i++;
+  }
+  return units;
+}
+const altTest = a => a.length<=3 ? new RegExp('(^| )'+a.replace(/\./g,'\\.')+'( |$)') : a.length===4 ? new RegExp('(^| )'+a) : null;
+R.forEach(r=>{ r._h=' '+qn([r.t,r.au,r.src,r.s?r.s[1]:'',r.k,(r.th||[]).map(t=>THEMES[t]).join(' '),(r.sg||[]).map(n=>SDG[n]?SDG[n][0]:'').join(' ')].join(' '))+' '; });
+let QU=[];
+function qMatch(r){ return QU.every(u=>u.alts.some(a=>{ const re=u.res.get(a); return re? re.test(r._h) : r._h.includes(a); })); }
+function setQuery(v){
+  QU=parseQuery(v); QU.forEach(u=>{ u.res=new Map(); u.alts.forEach(a=>{ const re=altTest(a); if(re) u.res.set(a,re); }); });
+  st.q=QU.length?v:'';
+  const h=$('qhint'); const ex=QU.filter(u=>u.alts.length>1);
+  if(ex.length){ h.hidden=false; h.innerHTML='<b>Dicari juga sebagai padanannya:</b> '+ex.map(u=>u.alts.filter(a=>a!==u.q).slice(0,8).map(a=>`<span class="alt">${esc(a)}</span>`).join('')).join(' · '); }
+  else { h.hidden=true; h.innerHTML=''; }
+}
+const SUGG=['banjir','siklon tropis','rainfall','MJO','kekeringan','machine learning','kualitas udara','padi'];
+const sugHTML=()=>SUGG.map(w=>`<button type="button" data-s="${esc(w)}">${esc(w)}</button>`).join('');
+$('qsug').insertAdjacentHTML('beforeend',sugHTML());
+function bindSug(root){ root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{ $('q').value=b.dataset.s; runSearch(true); }); }
+bindSug($('qsug'));
+let qT=null;
+function jumpToResults(){ const off=76; const y=$('active').getBoundingClientRect().top+scrollY-off-10; scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
+function runSearch(jump){
+  clearTimeout(qT); setQuery($('q').value); render();
+  $('qsug').hidden=!!st.q;
+  if(jump){ if(window.closeFilterDrop) closeFilterDrop(); jumpToResults(); const L=$('list'); L.classList.remove('flash'); void L.offsetWidth; L.classList.add('flash'); }
+}
+$('q').oninput=()=>{ clearTimeout(qT); qT=setTimeout(()=>runSearch(false),180); };
+$('q').onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); if(!$('q').value.trim()){ $('q').focus(); return; } runSearch(true); $('q').blur(); } };
+$('q').addEventListener('search',()=>{ if(!$('q').value) runSearch(false); });
+$('go').onclick=()=>{ if(!$('q').value.trim()){ $('q').focus(); toast('Ketik kata kunci dulu, misalnya banjir atau rainfall.'); return; } runSearch(true); };
+function syncUI(){
+  document.querySelectorAll('#kchips .chip').forEach(b=>b.classList.toggle('on',st.kats.has(b.dataset.k)));
+  document.querySelectorAll('#tchips .chip').forEach(b=>b.classList.toggle('on',st.ths.has(b.dataset.t)));
+  $('dosen').value=st.dosen; $('y1').value=String(st.y1); $('y2').value=String(st.y2); $('q1').checked=st.q1; $('hide').checked=st.hide;
+}
+function renderActive(){
+  const a=[];
+  if(st.q) a.push(['Kata kunci: “'+st.q+'”',()=>{$('q').value='';setQuery('');$('qsug').hidden=false;}]);
+  if(st.dosen) a.push(['Dosen: '+nm(P[st.dosen]),()=>{st.dosen='';}]);
+  if(st.y1||st.y2<9999) a.push(['Tahun: '+(st.y1||'awal')+' sampai '+(st.y2<9999?st.y2:'sekarang'),()=>{st.y1=0;st.y2=9999;}]);
+  st.kats.forEach(k=>a.push(['Jenis: '+k,()=>st.kats.delete(k)]));
+  st.ths.forEach(t=>a.push(['Tema: '+THEMES[t],()=>st.ths.delete(t)]));
+  if(st.q1) a.push(['Hanya Q1',()=>{st.q1=false;}]);
+  if(st.hide) a.push(['Tanpa duplikat',()=>{st.hide=false;}]);
+  const box=$('active');
+  if(!a.length){ box.innerHTML=''; return; }
+  box.innerHTML='<span>Filter aktif:</span>'+a.map((x,i)=>`<button type="button" class="pill" data-i="${i}" title="Klik untuk melepas filter ini">${esc(x[0])}<i>✕</i></button>`).join('')+(a.length>1?'<button type="button" class="pill clr" id="clrall">Hapus semua</button>':'');
+  box.querySelectorAll('.pill[data-i]').forEach(b=>b.onclick=()=>{ a[+b.dataset.i][1](); syncUI(); render(); });
+  if($('clrall')) $('clrall').onclick=()=>$('reset').click();
+}
+const reEsc=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+function hl(text){
+  let h=esc(text); if(!st.q||!QU.length) return h;
+  const alts=[...new Set(QU.flatMap(u=>u.alts))].filter(a=>a.length>=3&&/^[a-z0-9 .\-]+$/.test(a)).sort((x,y)=>y.length-x.length);
+  if(!alts.length) return h;
+  let re; try{ re=new RegExp('(?<![a-z0-9])('+alts.map(a=>a.length<=4?reEsc(a)+'(?![a-z0-9])':reEsc(a)).join('|')+')','gi'); }catch(e){ re=new RegExp('('+alts.map(reEsc).join('|')+')','gi'); }
+  return h.replace(/(<[^>]*>|&[a-z]+;)|([^<&]+)/g,(m,tag,txt)=>tag?tag:txt.replace(re,'<mark>$1</mark>'));
+}
 $('dosen').onchange=e=>{st.dosen=e.target.value;render()};
-$('y1').onchange=e=>{st.y1=+e.target.value;render()};
-$('y2').onchange=e=>{st.y2=+e.target.value;render()};
+function fixYears(){ if(st.y1&&st.y2<9999&&st.y1>st.y2){ [st.y1,st.y2]=[st.y2,st.y1]; syncUI(); toast('Rentang tahun dibalik otomatis menjadi '+st.y1+' sampai '+st.y2+'.'); } }
+$('y1').onchange=e=>{st.y1=+e.target.value;fixYears();render()};
+$('y2').onchange=e=>{st.y2=+e.target.value;fixYears();render()};
 $('q1').onchange=e=>{st.q1=e.target.checked;render()};
 $('hide').onchange=e=>{st.hide=e.target.checked;render()};
-$('reset').onclick=()=>{st.dosen='';st.kats.clear();st.ths.clear();st.q='';st.y1=0;st.y2=9999;st.q1=false;st.hide=false;$('q').value='';$('dosen').value='';$('y1').value='0';$('y2').value='9999';$('q1').checked=false;$('hide').checked=false;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));render();};
+$('reset').onclick=()=>{st.dosen='';st.kats.clear();st.ths.clear();st.q='';setQuery('');$('qsug').hidden=false;st.y1=0;st.y2=9999;st.q1=false;st.hide=false;$('q').value='';$('dosen').value='';$('y1').value='0';$('y2').value='9999';$('q1').checked=false;$('hide').checked=false;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));render();};
 
 function filtered(){
   return R.filter(r=>(!st.hide||!r.dup) && (!st.ths.size||r.th.some(t=>st.ths.has(t))) && (!st.kats.size||st.kats.has(r.k)) && (!st.dosen||r.pp.includes(st.dosen)) && r.y>=st.y1 && r.y<=st.y2 && (!st.q1||r.q==='Q1') &&
-    (!st.q || (r.t+' '+r.au+' '+r.src).toLowerCase().includes(st.q)));
+    (!st.q || qMatch(r)));
 }
 function render(){
   document.querySelectorAll('.card').forEach(c=>c.classList.toggle('on',c.dataset.id===st.dosen));
   const f = filtered();
   $('count').textContent = f.length+' publikasi ditampilkan'+(st.dosen?' untuk '+nm(P[st.dosen]):'');
+  { const c=$('count'); c.classList.remove('pulse'); void c.offsetWidth; c.classList.add('pulse'); }
+  renderActive();
+  if(window.syncCompact) syncCompact(f.length);
   let html='', cur=null; const byY={}; f.forEach(r=>byY[r.y]=(byY[r.y]||0)+1);
   for(const r of f){
     if(r.y!==cur){cur=r.y; html+=`<div class="yr"><b>${r.y}</b><i></i><span>${byY[r.y]} publikasi</span></div>`;}
@@ -291,15 +970,19 @@ function render(){
     if(r.doi) links.push(`<a class="lnk" href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">DOI</a>`);
     else if(r.link) links.push(`<a class="lnk" href="${esc(r.link)}" target="_blank" rel="noopener">Tautan</a>`);
     if(r.scopus) links.push(`<a class="lnk" href="${esc(r.scopus)}" target="_blank" rel="noopener">Scopus</a>`);
-    html+=`<div class="item${r.dup?' dup':''}">
-      ${r.link?`<a class="tt" href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.t)}</a>`:`<span class="tt">${esc(r.t)}</span>`}
-      <div class="au">${esc(r.au)}</div>
+    html+=`<div class="item${r.dup?' dup':''}" data-pid="${esc(r.id)}">
+      ${r.link?`<a class="tt" href="${esc(r.link)}" target="_blank" rel="noopener">${hl(r.t)}</a>`:`<span class="tt">${hl(r.t)}</span>`}
+      <div class="au">${hl(r.au)}</div>
       ${r.src?`<div class="src">${esc(r.src)}</div>`:''}
-      ${r.s?`<div class="sm${r.s[0]==='p'?' p':''}"><div class="lb"><b>${r.s[0]==='a'?'Ringkasan abstrak':'Penjelasan'}</b><i>${r.s[0]==='a'?'Terjemahan bebas berbahasa Indonesia yang diringkas, bukan teks asli':'Disusun karena abstrak asli tidak tersedia'}${r.s[2]?' · diambil dari versi utama karya ini':''}</i></div>${esc(r.s[1])}</div>`:''}
-      <div class="thr"><span class="lbl">Tema</span>${r.th.map(t=>`<span class="tm">${THEMES[t]}</span>`).join('')}${r.sg.length?`<span class="lbl" style="margin-left:6px">SDGs</span>`+r.sg.map(n=>`<span class="sg" style="background:${SDG[n][1]}" title="SDG ${n}: ${SDG[n][0]}">${n} · ${SDG[n][0]}</span>`).join(''):''}</div>
+      ${r.s?`<div class="sm${r.s[0]==='p'?' p':''}"><div class="lb"><b>${r.s[0]==='a'?'Ringkasan abstrak':'Penjelasan'}</b><i>${r.s[0]==='a'?'Terjemahan bebas berbahasa Indonesia yang diringkas, bukan teks asli':'Disusun karena abstrak asli tidak tersedia'}${r.s[2]?' · diambil dari versi utama karya ini':''}</i></div>${hl(r.s[1])}</div>`:''}
+      <div class="thr"><span class="lbl">Tema</span>${r.th.map(t=>`<span class="tm" role="button" tabindex="0" data-t="${t}" title="Tampilkan semua publikasi bertema ini">${THEMES[t]}</span>`).join('')}${r.sg.length?`<span class="lbl" style="margin-left:6px">SDGs</span>`+r.sg.map(n=>`<span class="sg" style="background:${SDG[n][1]}" title="SDG ${n}: ${SDG[n][0]}">${n} · ${SDG[n][0]}</span>`).join(''):''}</div>
       <div class="meta">${tags.join('')} ${links.join(' ')}</div></div>`;
   }
-  $('list').innerHTML = html || '<p style="color:var(--muted)">Tidak ada publikasi yang cocok dengan filter.</p>';
+  $('list').innerHTML = html || `<div class="empty"><b>Tidak ada publikasi yang cocok</b>Coba kata kunci lain, atau lepas sebagian filter di atas.
+    <div class="acts">${st.q?'<button type="button" class="btn" id="eq">Hapus kata kunci</button>':''}<button type="button" class="btn gold" id="ea">Hapus semua filter</button></div>
+    <div class="qsug"><span>Atau coba:</span>${sugHTML()}</div></div>`;
+  if(!html){ if($('eq')) $('eq').onclick=()=>{$('q').value='';setQuery('');$('qsug').hidden=false;render();}; $('ea').onclick=()=>$('reset').click(); bindSug($('list')); }
+  $('list').querySelectorAll('.tm[data-t]').forEach(t=>{ const go=()=>{ st.ths.add(t.dataset.t); syncUI(); render(); jumpToResults(); toast('Filter tema ditambahkan: '+THEMES[t.dataset.t]); }; t.onclick=go; t.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }; });
   document.querySelectorAll('.tag.dos').forEach(t=>t.onclick=()=>openProfile(t.dataset.id));
 }
 render();
@@ -491,13 +1174,198 @@ document.querySelectorAll('.kpi').forEach(b=>b.onclick=()=>({all:panelAll,dosen:
 function closeProfile(){$('drawer').classList.remove('on');$('shade').classList.remove('on');$('drawer').setAttribute('aria-hidden','true');}
 $('shade').onclick=closeProfile; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProfile();});
 
-$('csv').onclick=async()=>{
-  const f=filtered(); const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
-  const lines=[['Tahun','Judul','Dosen ITB','Penulis','Jurnal/Sumber','Jenis','Kuartil','Sitasi','Akses terbuka','DOI','Tautan','Halaman abstrak','Tema','SDGs','Status'].join(',')];
-  f.forEach(r=>lines.push([r.y,q(r.t),q(r.pp.map(i=>P[i]?nm(P[i]):'').join('; ')),q(r.au),q(r.src),q(r.k),r.q,r.c,r.oa?'Ya':'Tidak',q(r.doi),q(r.link),q(scholarPaper(r)),q(r.th.map(t=>THEMES[t]).join('; ')),q(r.sg.map(n=>'SDG '+n).join('; ')),q(r.dup?'Duplikat':'')].join(',')));
-  try{await navigator.clipboard.writeText(lines.join('\n'));toast(f.length+' baris disalin. Tempel di Excel atau Google Sheets.');}
-  catch(e){toast('Gagal menyalin. Coba lagi.');}
-};
+
+/* ===== Panel rekomendasi ===== */
+(function(){
+  const RC = window.RCDATA = {"g": [["A", "Bencana dan keselamatan", "#c4553a"], ["B", "Pangan dan pertanian", "#5b8c35"], ["C", "Air dan kesehatan", "#1f9a8a"], ["D", "Energi dan ekonomi", "#c98a12"], ["E", "Kota dan udara", "#5b54b0"], ["F", "Iklim dan kebijakan", "#112f47"], ["G", "Pesisir, laut, dan nelayan", "#2a78b0"], ["T", "Transportasi dan perjalanan", "#5b6b7d"], ["H", "Literasi dan pendidikan iklim", "#b0507e"]], "r": [["A", "2-s2.0-85141292753", "Kenapa Majalaya hampir selalu banjir setiap tahun?", "Simulasi banjir Februari 2018 memperlihatkan peran sampah yang menyumbat aliran sungai. Peneliti merekomendasikan kapasitas sungai diperbesar, kolam retensi, dan jalur banjir khusus."], ["A", "2-s2.0-105020981348", "Puting beliung di Indonesia ternyata tercatat sejak tahun 1800-an", "Dari puluhan ribu laporan koran, berita daring, dan media sosial, terkumpul 436 kejadian tornado terverifikasi. Paling sering terjadi November sampai Januari, pada siang hingga sore hari."], ["A", "W7133215456", "Siklon Senyar: siklon langka di dekat khatulistiwa", "Senyar terbentuk sangat dekat ekuator di Selat Malaka, didorong pertemuan seruak dingin dan angin baratan. Siklon dekat ekuator di kawasan ini ternyata meningkat secara signifikan."], ["A", "W4413127933", "Makin lama kemarau, makin banyak titik api di lahan gambut", "Jumlah titik panas naik tajam seiring panjangnya hari kering berturut-turut. Kekeringan di atas 30 hari menghasilkan rata-rata sekitar 156 titik panas per kejadian di lahan gambut."], ["A", "2-s2.0-105051176532", "Kekeringan 39 bulan yang pernah melanda Jawa", "Pada 1960 sampai 1964, separuh selatan Jawa dilanda kekeringan ekstrem yang berlangsung hingga 39 bulan, terkait El Niño dan IOD. Durasi yang panjang menjadi pelajaran penting untuk kesiapsiagaan."], ["A", "2-s2.0-85056635599", "Peringatan dini cuaca ekstrem yang diperbarui setiap 3 jam", "Sistem ini memadukan prediksi cuaca dengan indeks bahaya BNPB untuk hujan lebat, angin kencang, gelombang tinggi, dan longsor, lalu memicu peringatan otomatis saat kondisi berbahaya."], ["B", "2-s2.0-85027943257", "El Niño bisa memangkas panen padi hingga 40 persen", "Indeks kekeringan padi berbasis suhu laut Pasifik bisa memberi peringatan lebih awal. Wilayah paling rawan: Jawa Barat pada Mei sampai Oktober dan Sulawesi Selatan pada Agustus sampai Oktober."], ["B", "2-s2.0-105028682875", "Hari panas dan hari kering makin sering di lumbung padi kita", "Jawa dan Sumatra menyumbang sekitar 75 persen produksi padi nasional. Proyeksi iklim menunjukkan cekaman panas dan kekeringan pada musim tanam menguat, bahkan pada skenario emisi rendah."], ["B", "W2904014631", "Asuransi untuk petani yang dicairkan berdasarkan prakiraan iklim", "Konsep pembiayaan berbasis prakiraan menggabungkan asuransi berbasis indeks dengan prediksi iklim, sehingga perlindungan bisa bergerak sebelum gagal panen terjadi."], ["C", "2-s2.0-105028166903", "Udara di sekitar TPA Sarimukti melampaui ambang batas", "Kadar benzena, PM2.5, dan amonia di TPA terbuka ini melampaui ambang. Tidak adanya penutupan tanah harian dan lalu lalang kendaraan memperburuk kualitas udara bagi para pekerjanya."], ["C", "2-s2.0-105011048602", "Hujan dan mutu air baku PDAM yang kita minum", "Di intake PDAM Tirta Raharja, Kabupaten Bandung, curah hujan berkaitan dengan naiknya BOD dan bakteri koli tinja di air baku. Proyeksi iklim 2025 sampai 2045 menjadi masukan pengelolaan air bersih."], ["C", "2-s2.0-80355135696", "Tanah Jakarta turun hingga 2 meter", "Pada 1982 sampai 1997 penurunan tanah di beberapa titik Jakarta mencapai 20 sampai 200 cm, berkaitan dengan pengambilan air tanah. Di pesisir, risikonya berlipat bersama kenaikan muka laut."], ["C", "2-s2.0-85145304685", "Kenapa asap karhutla bisa mengepung Pekanbaru?", "Asap kebakaran di Riau naik hingga 1,6 sampai 2,5 km, lalu angin dari tenggara dan barat daya membawanya ke pusat kota. Lapisan udara stabil membuat asap turun dan terperangkap di permukaan."], ["D", "W7220521326", "Makin gerah, tagihan listrik makin naik?", "Data 2012 sampai 2024 di Bandung menunjukkan keterkaitan antara indeks rasa gerah dan konsumsi listrik rumah tangga bulanan. Penulis mencatat dugaan peran AC belum diverifikasi langsung."], ["D", "W7216431002", "Saat El Niño datang, listrik dari PLTA ikut turun", "El Niño kuat 2015 menurunkan debit Sungai Serayu dan produksi listrik PLTA Mrica secara signifikan, sedangkan La Niña 2020 menaikkannya. Pengelolaan air waduk perlu adaptif terhadap iklim."], ["D", "W7220604163", "Seberapa besar potensi listrik tenaga surya Indonesia di masa depan?", "Proyeksi 2030 sampai 2060 dari lima model iklim menunjukkan respons yang berbeda antarwilayah dan antarmusim. Ketidakpastian ini perlu masuk dalam strategi energi terbarukan menuju net zero 2060."], ["D", "W7220611509", "Listrik dari perbedaan suhu Laut Banda", "Teknologi OTEC memanfaatkan beda suhu laut permukaan dan laut dalam. Potensinya di Laut Banda menjanjikan, tetapi bisa melemah sementara saat ENSO, sehingga disarankan sistem energi hibrida."], ["E", "2-s2.0-105022732377", "Suhu malam di IKN bisa naik sekitar 2,5 °C", "Gabungan urbanisasi sesuai rencana tata guna lahan dan pemanasan global berpotensi menaikkan suhu awal malam di sekitar IKN pada pertengahan abad. Angin lemah memperparah pemanasan."], ["E", "W4245559095", "Car Free Day di Dago terbukti menurunkan polusi", "Pengukuran setiap Minggu pagi di Jalan Dago, Bandung, menunjukkan konsentrasi CO dan CO₂ turun saat Car Free Day. Kadar CO paling dipengaruhi jumlah kendaraan dan arah angin."], ["E", "2-s2.0-85218697892", "Ruang hijau bisa mendinginkan IKN sekitar 2 °C", "Dari lima skenario yang disimulasikan, porsi 65 persen ruang biru dan hijau paling efektif menurunkan suhu permukaan kota rata-rata sekitar 2 °C."], ["E", "2-s2.0-85197416267", "Kota di Jawa bagian barat tumbuh dua kali lipat dalam 20 tahun", "Citra satelit 2000 sampai 2019 menunjukkan kawasan kota di Jabodetabek dan Sukabumi tumbuh lebih dari dua kali lipat, diikuti makin luasnya pulau panas perkotaan. Penting untuk perencanaan kota."], ["F", "2-s2.0-85143221468", "Banjir paling memukul masyarakat miskin", "Banjir mencakup sekitar 32 persen bencana di Indonesia. Di Jawa Barat, tutupan lahan terbangun menjadi faktor terpenting yang membedakan wilayah yang melaporkan banjir dengan yang tidak."], ["F", "2-s2.0-85122014371", "Di mana sebaiknya sekolah baru dibangun agar aman dan merata?", "Model kesesuaian lahan ini memadukan aksesibilitas, bahaya alam, bahaya biologis, kenyamanan, dan nilai lahan untuk lokasi SD, SMP, dan SMA baru di Jawa Barat."], ["F", "2-s2.0-85097304571", "Aturan tata ruang Bandung Utara dan banjir di wilayah lain", "Perda Kawasan Bandung Utara berpotensi menggeser urbanisasi ke wilayah lain. Pergeseran ini berdampak signifikan pada debit banjir di wilayah timur Cekungan Bandung."], ["F", "2-s2.0-105011711084", "Hujan ekstrem di ibu kota baru pada masa depan", "Proyeksi beberapa model iklim regional untuk IKN menunjukkan pemanasan global bisa memicu kekeringan parah mirip El Niño. Hasil antarmodel berbeda, sehingga pemilihan model sangat menentukan."], ["G", "2-s2.0-105023434157", "Gelombang panas laut dan menyusutnya karang di Nusa Dua", "Gelombang panas laut berkontribusi pada berkurangnya tutupan karang sehat di Nusa Dua, Bali. Musim timur yang lebih dingin akibat upwelling menjadi masa pemulihan karang."], ["G", "W7214737330", "Bom ikan lebih merusak karang di siang hari", "Model ideal ini menunjukkan gas hasil fotosintesis di kanopi karang memperbesar kerusakan akibat ledakan. Karena kadar gas berubah harian, ledakan yang sama lebih merusak pada siang hari."], ["G", "W7138460771", "Seberapa cepat lahan pesisir utara Jakarta berubah?", "Citra satelit 2017 sampai 2024 di kawasan proyek PIK2 memperlihatkan lonjakan perubahan lahan pada 2019 sampai 2020, serta perkiraan waktu hingga lahan pertanian dan pepohonan menjadi kawasan terbangun."], ["T", "W4311899077", "Angin geser ekstrem yang membuat pesawat antre di Soekarno-Hatta", "Barisan awan badai dengan microburst memicu geseran angin lapisan rendah yang berbahaya saat lepas landas dan mendarat, hingga menyebabkan antrean pesawat."], ["T", "W4292455507", "Apa yang terjadi saat pesawat Etihad diguncang turbulensi di atas Bangka?", "Simulasi model cuaca menunjukkan turbulensi kategori kuat muncul bersamaan dengan arus naik dari awan konvektif pada 4 Mei 2016."], ["T", "W4405383416", "Memetakan potensi turbulensi di langit Indonesia", "Potensi turbulensi di wilayah penerbangan Indonesia dipetakan dari data model lalu dibandingkan dengan pengamatan lokal. Perbedaan yang ditemukan menjadi catatan bagi keandalan peta turbulensi."], ["H", "W4416070932", "Menyiapkan garda depan informasi cuaca dan iklim", "Lewat webinar dan pelatihan, peserta dari berbagai latar memahami cuaca, musim, dan iklim Indonesia dengan lebih baik, sekaligus membangun jejaring antarpeneliti dan pengamat."], ["H", "2-s2.0-105042964437", "Pendidikan perubahan iklim di Indonesia", "Bab buku ini memetakan inisiatif pendidikan dan riset perubahan iklim di Indonesia, dari emisi karbon, energi terbarukan, hingga adaptasi dan mitigasi yang banyak diangkat mahasiswa."]]};
+  const G = Object.fromEntries(RC.g.map(([k,n,c])=>[k,{n,c}]));
+  const RB = Object.fromEntries(R.map(r=>[r.id,r]));
+  const items = RC.r.filter(x=>RB[x[1]]);
+  const tabs=$('rtabs'), track=$('rtrack'), pos=$('rpos'), bar=$('rbar'), prev=$('rprev'), next=$('rnext');
+  let cur='all';
+  const counts = {}; items.forEach(x=>counts[x[0]]=(counts[x[0]]||0)+1);
+  tabs.innerHTML = `<button class="rtab on" role="tab" aria-selected="true" data-g="all" style="--c:var(--navy)"><i></i>Semua <b>${items.length}</b></button>` +
+    RC.g.filter(([k])=>counts[k]).map(([k,n,c])=>`<button class="rtab" role="tab" aria-selected="false" data-g="${k}" style="--c:${c}"><i></i>${esc(n)} <b>${counts[k]}</b></button>`).join('');
+  const kindLabel = r => r.k==='Preprint' ? 'Preprint, belum ditelaah sejawat' : r.k;
+  function card(x){
+    const [g,id,h,w]=x, r=RB[id], gg=G[g];
+    const dos=r.pp.map(i=>P[i]?short(P[i].n):'').filter(Boolean);
+    return `<article class="rcard" style="--c:${gg.c}" data-id="${esc(id)}">
+      <div class="rg"><i></i>${esc(gg.n)}</div>
+      <h3>${esc(h)}</h3>
+      <p class="rw">${esc(w)}</p>
+      <div class="ro" title="${esc(r.t)}">${esc(r.t)}</div>
+      <div class="rm"><span>${r.y}</span><span class="${r.k==='Preprint'?'pp':''}">${esc(kindLabel(r))}${r.q?' · '+r.q:''}</span></div>${dos.length?`<div class="rd">${dos.map(d=>esc(d)).join(', ')}</div>`:''}
+      <button type="button" class="rgo" data-id="${esc(id)}">Baca selengkapnya <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
+    </article>`;
+  }
+  function draw(){
+    const list = cur==='all'?items:items.filter(x=>x[0]===cur);
+    track.innerHTML = list.map(card).join('');
+    track.scrollLeft = 0;
+    track.querySelectorAll('.rgo').forEach(b=>b.onclick=e=>{ if(moved) return; const ids=[...track.querySelectorAll('.rcard')].map(c=>c.dataset.id); openPaper(b.dataset.id, ids, b); });
+    update();
+  }
+  function step(){ const c=track.querySelector('.rcard'); return c? c.getBoundingClientRect().width+14 : 300; }
+  function update(){
+    const n=track.children.length, st=step();
+    const first=Math.min(n, Math.round(track.scrollLeft/st)+1);
+    const vis=Math.max(1,Math.floor((track.clientWidth+14)/st));
+    const last=Math.min(n, first+vis-1);
+    pos.textContent = n ? (vis>1&&last>first ? first+'–'+last : first)+' / '+n : '';
+    const max=track.scrollWidth-track.clientWidth;
+    prev.disabled = track.scrollLeft<=4; next.disabled = track.scrollLeft>=max-4;
+    const frac = n? Math.min(1,vis/n):1; bar.style.width=(frac*100)+'%';
+    bar.style.transform='translateX('+(max>0?(track.scrollLeft/max)*((1-frac)/frac)*100:0)+'%)';
+  }
+  tabs.querySelectorAll('.rtab').forEach(b=>b.onclick=()=>{
+    tabs.querySelectorAll('.rtab').forEach(t=>{t.classList.toggle('on',t===b);t.setAttribute('aria-selected',t===b);});
+    cur=b.dataset.g; draw(); b.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
+  });
+  prev.onclick=()=>track.scrollBy({left:-step()*Math.max(1,Math.floor(track.clientWidth/step())),behavior:'smooth'});
+  next.onclick=()=>track.scrollBy({left: step()*Math.max(1,Math.floor(track.clientWidth/step())),behavior:'smooth'});
+  track.addEventListener('scroll',()=>requestAnimationFrame(update),{passive:true});
+  window.addEventListener('resize',update);
+  track.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){e.preventDefault();track.scrollBy({left:step(),behavior:'smooth'});} if(e.key==='ArrowLeft'){e.preventDefault();track.scrollBy({left:-step(),behavior:'smooth'});} });
+  // seret dengan mouse
+  let down=false, sx=0, sl=0, moved=false;
+  track.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse'||e.button!==0) return; down=true; moved=false; sx=e.clientX; sl=track.scrollLeft; });
+  window.addEventListener('pointermove',e=>{ if(!down) return; const dx=e.clientX-sx; if(!moved&&Math.abs(dx)>6){ moved=true; track.classList.add('drag'); } if(moved){ track.scrollLeft=sl-dx; } });
+  window.addEventListener('pointerup',()=>{ if(!down) return; down=false; if(moved){ track.classList.remove('drag'); const st=step(); track.scrollTo({left:Math.round(track.scrollLeft/st)*st,behavior:'smooth'}); setTimeout(()=>{moved=false;},50); } });
+  draw();
+})();
+function goPaper(id){
+  $('reset').click();
+  const el=document.querySelector('#list .item[data-pid="'+(window.CSS&&CSS.escape?CSS.escape(id):id)+'"]');
+  if(!el){ toast('Publikasi tidak ditemukan di daftar.'); return; }
+  const off=76;
+  const y=Math.max(0,el.getBoundingClientRect().top+scrollY-off-14);
+  scrollTo({top:y,behavior:Math.abs(y-scrollY)>2500?'auto':'smooth'});
+  el.classList.remove('focus'); void el.offsetWidth; el.classList.add('focus');
+}
+
+/* ===== Jendela detail paper ===== */
+(function(){
+  const pm=$('pm'), box=$('pmBox'); let ids=[], idx=0, opener=null;
+  const RB=Object.fromEntries(R.map(r=>[r.id,r]));
+  const RCD=window.RCDATA||{g:[],r:[]};
+  const GI=Object.fromEntries(RCD.g.map(([k,n,c])=>[k,{n,c}]));
+  const RI=Object.fromEntries(RCD.r.map(([g,id,h,w])=>[id,{g,h,w}]));
+  const arrow=d=>`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+  function body(r){
+    const ri=RI[r.id], gi=ri?GI[ri.g]:null;
+    box.style.setProperty('--c', gi?gi.c:'var(--navy)');
+    const kind=r.k==='Preprint'?'<span class="pp">Preprint, belum ditelaah sejawat</span>':`<span>${esc(r.k)}</span>`;
+    const meta=[`<span>${r.y}</span>`,kind,r.q?`<span>Jurnal ${r.q}</span>`:'',`<span>${r.c} sitasi</span>`,r.oa?'<span>Akses terbuka</span>':''].join('');
+    const sum=r.s?`<div class="pm-sum"><b>${r.s[0]==='a'?'Ringkasan abstrak':'Penjelasan'} <small>${r.s[0]==='a'?'terjemahan bebas yang diringkas, bukan teks asli':'disusun karena abstrak asli tidak tersedia'}</small></b>${esc(r.s[1])}</div>`:'';
+    const th=r.th.map(t=>`<span class="tm">${THEMES[t]}</span>`).join('');
+    const sg=r.sg.length?`<span class="lbl" style="margin-left:6px">SDGs</span>`+r.sg.map(n=>`<span class="sg" style="background:${SDG[n][1]}">${n} · ${SDG[n][0]}</span>`).join(''):'';
+    const dos=r.pp.filter(i=>P[i]).map(i=>`<button type="button" data-id="${i}">${esc(nm(P[i]))}</button>`).join('');
+    const links=[`<a class="pri" href="${scholarPaper(r)}" target="_blank" rel="noopener">Buka abstrak asli ${arrow('M7 17 17 7M8 7h9v9')}</a>`];
+    if(r.doi) links.push(`<a class="sec2" href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">DOI</a>`);
+    else if(r.link) links.push(`<a class="sec2" href="${esc(r.link)}" target="_blank" rel="noopener">Tautan sumber</a>`);
+    links.push(`<button type="button" class="sec2" id="pmList">Tampilkan di daftar publikasi</button>`);
+    const multi=ids.length>1;
+    box.innerHTML=`<div class="pm-top">${gi?`<span class="grp"><i></i>${esc(gi.n)}</span>`:''}<span class="sp"></span>
+        ${multi?`<span class="pos">${idx+1} dari ${ids.length}</span><button class="pm-ib" id="pmPrev" type="button" aria-label="Paper sebelumnya" ${idx===0?'disabled':''}>${arrow('m15 18-6-6 6-6')}</button><button class="pm-ib" id="pmNext" type="button" aria-label="Paper berikutnya" ${idx===ids.length-1?'disabled':''}>${arrow('m9 18 6-6-6-6')}</button>`:''}
+        <button class="pm-ib" id="pmX" type="button" aria-label="Tutup">${arrow('M18 6 6 18M6 6l12 12')}</button></div>
+      <div class="pm-body">
+        <h2 id="pmH">${esc(ri?ri.h:r.t)}</h2>
+        ${ri?`<p class="pm-why"><b>Kenapa ini penting</b>${esc(ri.w)}</p>`:''}
+        ${r.link?`<a class="pm-ot" href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.t)}</a>`:`<div class="pm-ot">${esc(r.t)}</div>`}
+        <div class="pm-au">${esc(r.au)}</div>${r.src?`<div class="pm-src">${esc(r.src)}</div>`:''}
+        <div class="pm-meta">${meta}</div>
+        ${sum}
+        <div class="pm-tags"><span class="lbl">Tema</span>${th}${sg}</div>
+        ${dos?`<div class="pm-dos"><span class="lbl" style="font-size:12px;font-weight:700;color:var(--navy)">Dosen ITB</span>${dos}</div>`:''}
+        <div class="pm-act">${links.join('')}</div>
+        ${multi?'<div class="pm-kbd">Tekan panah kiri atau kanan di keyboard untuk berpindah paper, Esc untuk menutup.</div>':''}
+      </div>`;
+    box.scrollTop=0;
+    $('pmX').onclick=closePaper;
+    if(multi){ $('pmPrev').onclick=()=>show(idx-1); $('pmNext').onclick=()=>show(idx+1); }
+    $('pmList').onclick=()=>{ const id=r.id; closePaper(); goPaper(id); };
+    box.querySelectorAll('.pm-dos button').forEach(b=>b.onclick=()=>{ closePaper(); openProfile(b.dataset.id); });
+  }
+  function show(i){ if(i<0||i>=ids.length) return; idx=i; body(RB[ids[idx]]); box.focus({preventScroll:true}); }
+  window.openPaper=function(id,list,from){
+    if(!RB[id]) return; ids=(list&&list.length?list:[id]).filter(x=>RB[x]); idx=Math.max(0,ids.indexOf(id)); opener=from||document.activeElement;
+    pm.hidden=false; document.body.classList.add('pm-open'); body(RB[id]); box.focus({preventScroll:true});
+  };
+  window.closePaper=function(){ if(pm.hidden) return; pm.hidden=true; document.body.classList.remove('pm-open'); if(opener&&opener.focus) opener.focus({preventScroll:true}); };
+  $('pmShade').onclick=closePaper;
+  document.addEventListener('keydown',e=>{
+    if(pm.hidden) return;
+    if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); closePaper(); }
+    else if(e.key==='ArrowRight'&&ids.length>1){ e.preventDefault(); show(idx+1); }
+    else if(e.key==='ArrowLeft'&&ids.length>1){ e.preventDefault(); show(idx-1); }
+    else if(e.key==='Tab'){ const f=[...box.querySelectorAll('a,button:not([disabled])')]; if(!f.length) return; const a=f[0], z=f[f.length-1];
+      if(e.shiftKey&&(document.activeElement===a||document.activeElement===box)){ e.preventDefault(); z.focus(); } else if(!e.shiftKey&&document.activeElement===z){ e.preventDefault(); a.focus(); } }
+  },true);
+})();
+
+/* ===== Bilah pencarian ringkas ===== */
+(function(){
+  const bar=document.querySelector('.bar'), cbar=$('cbar'), q=$('q'), q2=$('q2'), fp=$('fpanel'), fslot=$('fslot'), cslot=$('cslot'), ftog=$('ftog');
+  let open=false, y0=0, holdUntil=0;
+  function setShow(v){ cbar.classList.toggle('show',v); cbar.setAttribute('aria-hidden',v?'false':'true'); }
+  function check(){
+    if(open) return;
+    const b=bar.getBoundingClientRect().bottom, L=$('list').getBoundingClientRect();
+    setShow(b<0 && L.bottom>140);
+  }
+  function openDrop(){ if(open) return; open=true; cslot.appendChild(fp); cbar.classList.add('open'); ftog.setAttribute('aria-expanded','true'); y0=scrollY; holdUntil=Date.now()+700; setShow(true); }
+  function closeDrop(){ if(!open) return; open=false; fslot.appendChild(fp); cbar.classList.remove('open'); ftog.setAttribute('aria-expanded','false'); check(); }
+  window.closeFilterDrop=closeDrop;
+  ftog.onclick=()=>open?closeDrop():openDrop();
+  q2.addEventListener('focus',openDrop);
+  q2.addEventListener('input',()=>{ q.value=q2.value; q.dispatchEvent(new Event('input')); holdUntil=Date.now()+700; });
+  q.addEventListener('input',()=>{ if(q2.value!==q.value) q2.value=q.value; });
+  q2.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); q.value=q2.value; closeDrop(); q2.blur(); runSearch(true); } });
+  $('go2').onclick=()=>{ q.value=q2.value; closeDrop(); if(!q.value.trim()){ q2.focus(); return; } runSearch(true); };
+  $('fclose').onclick=closeDrop;
+  $('fsee').onclick=()=>{ closeDrop(); jumpToResults(); };
+  document.addEventListener('pointerdown',e=>{ if(open&&!cbar.contains(e.target)) closeDrop(); });
+  document.addEventListener('keydown',e=>{ if(open&&e.key==='Escape'){ closeDrop(); ftog.focus(); } });
+  addEventListener('scroll',()=>{ if(open){ if(Date.now()>holdUntil&&Math.abs(scrollY-y0)>140) closeDrop(); } else check(); },{passive:true});
+  addEventListener('resize',()=>{ if(!open) check(); });
+  window.syncCompact=function(n){
+    holdUntil=Date.now()+700; if(open) y0=scrollY;
+    const k=(st.dosen?1:0)+((st.y1||st.y2<9999)?1:0)+st.kats.size+st.ths.size+(st.q1?1:0)+(st.hide?1:0);
+    const fc=$('fcount'); fc.textContent=k; fc.hidden=!k;
+    $('ccount').textContent=n+' publikasi'; $('fsee').textContent='Lihat '+n+' publikasi';
+    if(q2.value!==q.value&&document.activeElement!==q2) q2.value=q.value;
+  };
+  check(); syncCompact(filtered().length);
+})();
+
+/* ===== Angka di header menghitung naik ===== */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.top .kpi b').forEach((b,i)=>{
+    const t=b.textContent.trim(); if(!/^\d+$/.test(t)) return; const end=+t, t0=performance.now()+250+i*90, dur=1200;
+    b.textContent='0';
+    (function tick(now){ const p=Math.min(1,Math.max(0,(now-t0)/dur)); b.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); })(performance.now());
+  });
+})();
+
+/* ===== Mode gelap ===== */
+(function(){
+  const b=$('theme'), root=document.documentElement;
+  function set(t,save){ root.setAttribute('data-theme',t); const dk=t==='dark'; b.classList.toggle('dk',dk); b.setAttribute('aria-label',dk?'Ganti ke mode terang':'Ganti ke mode gelap'); b.querySelector('.tl').textContent=dk?'Terang':'Gelap'; if(save){ try{localStorage.setItem('pdm-theme',t)}catch(e){} } }
+  set(root.getAttribute('data-theme')||'light',false);
+  b.onclick=()=>set(root.getAttribute('data-theme')==='dark'?'light':'dark',true);
+})();
+/* ===== Pernyataan yang menyala kata demi kata saat digulir ===== */
+(function(){
+  const p=$('stx'), sec=$('stmt'); if(!p) return;
+  const words=p.textContent.trim().split(/\s+/);
+  p.innerHTML=words.map(w=>`<span>${esc(w)}</span> `).join('');
+  const sp=[...p.querySelectorAll('span')];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ sp.forEach(x=>x.classList.add('on')); return; }
+  function upd(){ const r=p.getBoundingClientRect(), vh=innerHeight; const prog=Math.min(1,Math.max(0,(vh*0.88-r.top)/(r.height+vh*0.38))); const k=Math.round(prog*sp.length); sp.forEach((x,i)=>x.classList.toggle('on',i<k)); }
+  addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true}); addEventListener('resize',upd); upd();
+})();
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);}
 </script>
 <button class="totop" id="totop" type="button" aria-label="Kembali ke atas"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg><span>Kembali ke atas</span></button>
